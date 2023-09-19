@@ -120,12 +120,30 @@ liverpool <- st_read('data/boundaries/england_lsoa_2011.shp')
 
 # inspect
 plot(liverpool$geometry)
+```
+
+```{r}
+#| label: geo-join-those-spatial-data
+#| warning: FALSE
+#| message: FALSE
+#| cache: FALSE
+#| tidy: TRUE
+#| filename: "R code"
 
 # join data
 liv_iuc <- left_join(liverpool, iuc, by = c('code' = 'LSOA11_CD'))
 
 # inspect
 liv_iuc
+```
+
+```{r}
+#| label: geo-plot-those-spatial-data
+#| warning: FALSE
+#| message: FALSE
+#| cache: FALSE
+#| tidy: TRUE
+#| filename: "R code"
 
 # inspect
 tmap_mode('view')
@@ -251,7 +269,7 @@ The elbow method can help as it plots the total explained variation ('Within Sum
 #| echo: FALSE
 
 # settings
-options(max.print = 15)
+options(max.print = 10)
 ```
 
 
@@ -273,6 +291,15 @@ for (i in 1:15) {
 
 # inspect
 wss_values
+```
+
+```{r}
+#| label: geo-variables-that-cluster
+#| warning: FALSE
+#| message: FALSE
+#| cache: FALSE
+#| tidy: TRUE
+#| filename: "R code"
 
 # vector to dataframe
 wss_values <- as.data.frame(wss_values)
@@ -335,9 +362,6 @@ for (i in 1:10){
 
 # inspect
 clusters
-
-# inspect
-fit
 ```
 
 We now have to execute a bit of post-processing to extract some useful summary data for each cluster: the cluster size (`size`) and mean values for each cluster.
@@ -365,6 +389,15 @@ names(kfit_mean)[1] <- 'cluster'
 
 # inspect
 kfit_mean
+```
+
+```{r}
+#| label:  geo-plot-those-clusters-with-a-graph
+#| warning: FALSE
+#| message: FALSE
+#| cache: FALSE
+#| tidy: TRUE
+#| filename: "R code"
 
 # transform shape to tidy format
 kfit_mean_long <- pivot_longer(kfit_mean, cols=(-cluster))
