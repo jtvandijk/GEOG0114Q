@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>We can now load the required libraries as well as the major towns and cities boundaries <code>shapefile</code>.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -295,7 +295,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>We will go ahead and start with downloading and extracting our road network data. To OSM data using the <code>osmdata</code> library, we can use the <code>add_osm_feature()</code> function. To use the function, we need to provided it with either a <em>bounding box</em> of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the <a href="https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html">data vignette</a>.</p>
 <p>To use the library (and API), we need to know how to write and run a query, which requires identifying the <code>key</code> and <code>value</code> that we need within our query to select the correct data. Essentially every map element (whether a point, line or polygon) in OSM is <strong>tagged</strong> with different attribute data. These <code>keys</code> and <code>values</code> are used in our queries to extract only map elements of that feature type - to find out how a feature is tagged in OSM is simply a case of <a href="https://wiki.openstreetmap.org/wiki/Tags">reading through the OSM documentation</a> and becoming familiar with their keys and values.</p>
 <p>To download our road network dataset, we first define a variable to store our bounding box coordinates, <code>p_bbox()</code>. We then use this within our OSM query to extract specific types of road segments within that bounding box - the results of our query are then stored in an <code>osmdata</code> object. We will select all OSM features with the <code>highway</code> tag that are likely to be used by pedestrians (e.g.&nbsp;not <code>motorways</code>).</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -314,7 +314,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="note">
 <p><strong>Note</strong> <br> In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains <strong>all</strong> required OSM Portsmouth data instead: <a href="https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/osm_portmouth.zip">[Link]</a>.</p>
 <p>You can load these downloaded data as follows into R:</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -328,7 +328,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>The <code>osmdata</code> object contains the bounding box of your query, a time-stamp of the query, and then the spatial data as <code>osm_points</code>, <code>osm_lines</code>, <code>osm_multilines</code> and <code>osm_polgyons</code> (which are listed with their respective fields also detailed). Some of the spatial features maybe empty, depending on what you asked your query to return. Our next step therefore is to extract our spatial data from our <code>osmdata</code> object to create our road network data set. This is in fact incredibly easy, using the traditional <code>$</code> R approach to access these spatial features from our object.</p>
 <p>Deciding what to extract is probably the more complicated aspect of this - mainly as you need to understand how to represent your road network, and this will usually be determined by the library/functions you will be using it within. Today, we want to extract the <strong>edges</strong> of the network, i.e.&nbsp;the lines that represent the roads, as well as the <strong>nodes</strong> of the network, i.e.&nbsp;the points that represent the locations at which the roads start, end, or intersect. For our points, we will only keep the <code>osm_id</code> data field, just in case we need to refer to this later. For our lines, we will keep a little more information that we might want to use within our transport network analysis, including the type of road, the maximum speed, and whether the road is one-way or not.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -343,7 +343,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>To check our data set, we can quickly plot the edges of our road network using the <code>plot()</code> function:</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -355,7 +355,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>Because we are focusing on walking, we will overwrite the <code>oneway</code> variable by suggesting that none of the road segments are restricted to one-way traffic which may affect our analysis as well as the general connectivity of the network.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -370,7 +370,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <h3 data-number="2.3.3" class="anchored" data-anchor-id="osm"><span class="header-section-number">2.3.3</span> Measuring accessibility</h3>
 <p>Before we can construct our full network graph for the purpose of accessibility analysis, we need to also provide our <strong>Origin</strong> and <strong>Destination</strong> points, i.e.&nbsp;the data points we wish to calculate the distances between. According to the <code>dodgr</code> documentation, these points need to be in either a vector or matrix format, containing the two coordinates for each point for the origins and for the destinations.</p>
 <p>As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets - again we will turn to OpenStreetMap. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap <code>keys</code> and <code>values</code> to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -387,7 +387,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>We also need to then extract the relevant data from the <code>osmdata</code> object:</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -404,7 +404,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Note</strong> <br> In this analysis, we are highly reliant on the use of OpenStreetMap to provide data for both our Origins and Destinations. Whilst in the UK OSM provides substantial coverage, its quality is not always guaranteed. As a result, to improve on our current methodology in future analysis, we should investigate into a more official school data set or at least validate the number of schools against City Council records. The same applies to our fast-food outlets.</p>
 </div>
 <p>With any network analysis, the main data structure is a <strong>graph</strong>, constructed by our nodes and edges. To create a graph for use within <code>dodgr</code>, we pass our <code>ports_roads_edges()</code> into the <code>weight_streetnet()</code> function. The <code>dodgr</code> library also contains weighting profiles, that you can customise, for use within your network analysis. These weighting profiles contain weights based on the type of road, determined by the type of transportation the profile aims to model. Here we will use the weighting profile <strong>foot</strong>, as we are looking to model walking accessibility.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -417,7 +417,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="note">
 <p><strong>Note</strong> <br> The <code>dodgr</code> package documentation explains that components are numbered in order of decreasing size, with <code>$component = 1</code> always denoting the largest component. Always inspect the resulting subgraph to make sure that its coverage is adequate for analysis.</p>
 </div>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -441,7 +441,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Note</strong> <br> OpenStreetMap is a living dataset, meaning that changes are made on a continuous basis; as such it may very well possible that the number of remaining road segments as shown above may be slighlty different when you run this analysis.</p>
 </div>
 <p>Now we have our connected subgraph, will can use the <code>dodgr_distances()</code> function to calculate the network distances between every possible Origin and Destination. In the <code>dodgr_distances()</code> function, we first pass our <code>graph</code>, then our Origin points (schools), in the <code>from</code> argument, and then our Destination points (fast-food outlets), in the <code>to</code> argument. One thing to note is our addition of the <code>st_coordinates()</code> function as we pass our two point data sets within the <code>from</code> and <code>to</code> functions as we need to supplement our Origins and Destinations in a matrix format. For all Origins and Destinations, <code>dodgr_distances()</code> will map the points to the <strong>closest network points</strong>, and return corresponding shortest-path distances.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -452,7 +452,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>The result of this computation is a distance-matrix that contains the network distances between all Origins (i.e.&nbsp;schools) and all Destinations (i.e.&nbsp;fast-food outlets). Let’s inspect the first row of our output. Do you understand what the values mean?</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-data-check_29f63476fe40c85afc19b6f042242020">
+<div class="cell" data-warnign="false" data-hash="02-network_cache/html/ntx-data-check_1fb9814693fa25d4d23c65ed9c4693d6">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -550,7 +550,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Tip</strong> <br> The <a href="https://cran.r-project.org/web/packages/dodgr/vignettes/dodgr.html#4_Distance_Matrices:_dodgr_dists()"><code>dodgr</code> vignette</a> notes that a distance matrix obtained from running <code>dodgr_distances</code> on <code>graph_connected</code> should generally contain no <code>NA</code> values, although some points may still be effectively unreachable due to one-way connections (or streets). Thus, routing on the largest connected component of a directed graph ought to be expected to yield the minimal number of <code>NA</code> values, which may sometimes be more than zero. Note further that spatial routing points (expressed as from and/or to arguments) will in this case be mapped to the nearest vertices of <code>graph_connected</code>, rather than the potentially closer nearest points of the full graph.</p>
 </div>
 <p>The next step of processing all depends on what you are trying to assess - here we want to understand which schools have a higher accessibility of fast-food outlets compared to others, quantified by how many outlets are within walking distance of specific distances. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our <code>ports_school</code> data frame.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -566,7 +566,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>We can then look at our outputs quickly again using the <code>plot()</code> function.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
@@ -582,7 +582,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>Just from this simple plot, we can see across our distances some clear geographical patterns in accessibility of fast-food outlets for schools. We can improve this plot by making a proportional symbols map that show the different counts of fast-food outlets for each school in Portsmouth with a background of the Portsmouth City outline that you loaded at the beginning of this practical.</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnign="false">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>

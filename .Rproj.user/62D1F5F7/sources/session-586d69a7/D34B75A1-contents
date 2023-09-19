@@ -1,0 +1,36 @@
+/*--- warning ---*/
+.warning {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  background-color: #FEE;
+  color: #722;
+}
+
+/*--- note ---*/
+.note {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  background-color: #e5f5e0;
+  color: #000000;
+}
+
+/*--- tip ---*/
+.tip {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  background-color: #efedf5;
+  color: #000000;
+}
+
+.cell-output {
+  background-color: #f0f0f0; 
+}

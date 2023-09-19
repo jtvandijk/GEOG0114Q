@@ -3,7 +3,7 @@
     "path": "~/Library/CloudStorage/Dropbox/UCL/Web/jtvandijk.github.io/GEOG0114Q/01-geodemographics.qmd",
     "project_path": "01-geodemographics.qmd",
     "type": "quarto_markdown",
-    "hash": "3451806953",
+    "hash": "2686279813",
     "contents": "",
     "dirty": false,
     "created": 1695123086130.0,
@@ -13,15 +13,15 @@
         "rmdVisualMode": "false",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "41,7",
-        "scrollLine": "28"
+        "cursorPosition": "435,0",
+        "scrollLine": "117"
     },
     "folds": "",
-    "lastKnownWriteTime": 1695129774,
+    "lastKnownWriteTime": 1695130662,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1695129774948,
+    "last_content_update": 1695130662820,
     "read_only": false,
     "read_only_alternatives": []
 }

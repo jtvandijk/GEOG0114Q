@@ -59,7 +59,7 @@ knitr::include_graphics('images/w07/iuc_excel.png')
 
 ```{r}
 #| label: geo-load-libraries-and-data
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -74,6 +74,15 @@ iuc <- read_csv('data/index/iuc_gb_2018.csv')
 
 # inspect
 iuc
+```
+
+```{r}
+#| label: geo-inspect-data-types
+#| warning: FALSE
+#| message: FALSE
+#| cache: FALSE
+#| tidy: TRUE
+#| filename: "R code"
 
 # inspect data types
 str(iuc)
@@ -96,7 +105,7 @@ Now we got the administrative boundary data, we can prepare the IUC map by joini
 
 ```{r}
 #| label: geo-load-those-spatial-data
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -129,7 +138,7 @@ Let's use the same colours as used on [CDRC mapmaker](https://mapmaker.cdrc.ac.u
 
 ```{r}
 #| label: geo-pretty-colours
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -180,7 +189,7 @@ The data set contains the following variables:
 
 ```{r}
 #| label: geo-load-data-for-those-mean-ks
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -197,7 +206,7 @@ Before running our **k-means** clustering algorithm, we need to extract the data
 
 ```{r}
 #| label: geo-select-columns
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -217,7 +226,7 @@ We also need to rescale the data so all input data are presented on a comparable
 
 ```{r}
 #| label: geo-rescale-those-values
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -236,7 +245,7 @@ The elbow method can help as it plots the total explained variation ('Within Sum
 
 ```{r}
 #| label: geo-settings-and-options
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| echo: FALSE
@@ -248,7 +257,7 @@ options(max.print = 15)
 
 ```{r}
 #| label: geo-elbows-and-plots
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -294,7 +303,7 @@ Now we have decided on the number of clusters (i.e. **7** clusters), we can run 
 
 ```{r}
 #| label: geo-run-that-cluster
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -335,7 +344,7 @@ We now have to execute a bit of post-processing to extract some useful summary d
 
 ```{r}
 #| label: geo-post-process-some-clusters
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -376,7 +385,7 @@ Looking at the table with the mean values for each cluster and the graph, we can
 
 ```{r}
 #| label: geo-map-the-iuc
-#| warnings: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
