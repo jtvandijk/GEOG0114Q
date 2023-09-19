@@ -46,7 +46,7 @@ We can now load the required libraries as well as the major towns and cities bou
 
 ```{r}
 #| label: ntx-load-libaries-data
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -81,7 +81,7 @@ To download our road network dataset, we first define a variable to store our bo
 
 ```{r} 
 #| label: ntx-osm-download
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -104,7 +104,7 @@ In some instances the OSM query will return an error, especially when several pe
 You can load these downloaded data as follows into R:
 ```{r}
 #| label: ntx-load-osm-from-file
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| eval: FALSE
@@ -124,7 +124,7 @@ Deciding what to extract is probably the more complicated aspect of this - mainl
 
 ```{r}
 #| label: ntx-load-network-data
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -141,7 +141,7 @@ To check our data set, we can quickly plot the edges of our road network using t
 
 ```{r}
 #| label: ntx-network-plot
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -154,7 +154,7 @@ Because we are focusing on walking, we will overwrite the `oneway` variable by s
 
 ```{r} 
 #| label: ntx-one-directional-routes
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -173,7 +173,7 @@ As for our Portsmouth scenario we are interested in calculating the shortest dis
 
 ```{r}
 #| label: ntx-osm-schools-fastfood
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -194,7 +194,7 @@ We also need to then extract the relevant data from the `osmdata` object:
 
 ```{r}
 #| label: ntx-osm-locations-points
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -218,7 +218,7 @@ With any network analysis, the main data structure is a **graph**, constructed b
 
 ```{r}
 #| label: ntx-network-graph
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -237,7 +237,7 @@ The `dodgr` package documentation explains that components are numbered in order
 
 ```{r}
 #| label: ntx-extract-largest-graph
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -262,7 +262,7 @@ Now we have our connected subgraph, will can use the `dodgr_distances()` functio
 
 ```{r} 
 #| label: ntx-distance-matrix
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -276,7 +276,7 @@ The result of this computation is a distance-matrix that contains the network di
 
 ```{r}
 #| label: ntx-data-check
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE 
 #| cache: TRUE
 #| tidy: TRUE
@@ -298,7 +298,7 @@ The next step of processing all depends on what you are trying to assess - here 
 
 ```{r} 
 #| label: ntx-aggregate-counts
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -318,7 +318,7 @@ We can then look at our outputs quickly again using the `plot()` function.
 
 ```{r}
 #| label: ntx-plot-schools
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
@@ -335,7 +335,7 @@ Just from this simple plot, we can see across our distances some clear geographi
 
 ```{r} 
 #| label: ntx-proportional-symbol-map
-#| warnign: FALSE
+#| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
