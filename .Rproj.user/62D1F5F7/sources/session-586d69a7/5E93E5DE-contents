@@ -22,7 +22,7 @@ format:
     code-tools: 
       source: https://github.com/jtvandijk/GEOG0114Q
       toggle: false
-      caption: "R"
+      caption: none
     code-block-border-left: "#99d8c9"
     code-block-bg: "#f0f0f0"
 # pdf:
