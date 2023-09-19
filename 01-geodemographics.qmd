@@ -61,7 +61,7 @@ knitr::include_graphics('images/w07/iuc_excel.png')
 #| label: geo-load-libraries-and-data
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # load libraries
@@ -97,7 +97,7 @@ Now we got the administrative boundary data, we can prepare the IUC map by joini
 #| label: geo-load-those-spatial-data
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # load libraries
@@ -129,7 +129,7 @@ Let's use the same colours as used on [CDRC mapmaker](https://mapmaker.cdrc.ac.u
 #| label: geo-pretty-colours
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # define palette
@@ -179,7 +179,7 @@ The data set contains the following variables:
 #| label: geo-load-data-for-those-mean-ks
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # load data
@@ -195,7 +195,7 @@ Before running our **k-means** clustering algorithm, we need to extract the data
 #| label: geo-select-columns
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # column names
@@ -214,7 +214,7 @@ We also need to rescale the data so all input data are presented on a comparable
 #| label: geo-rescale-those-values
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # rescale
@@ -232,7 +232,7 @@ The elbow method can help as it plots the total explained variation ('Within Sum
 #| label: geo-settings-and-options
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| echo: FALSE
 
 # settings
@@ -243,7 +243,7 @@ options(max.print = 15)
 #| label: geo-elbows-and-plots
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # create empty list to store the within sum of square values 
@@ -288,7 +288,7 @@ Now we have decided on the number of clusters (i.e. **7** clusters), we can run 
 #| label: geo-run-that-cluster
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # create empty list to store the results of the clustering
@@ -328,7 +328,7 @@ We now have to execute a bit of post-processing to extract some useful summary d
 #| label: geo-post-process-some-clusters
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # assign to new variable for clarity
@@ -368,7 +368,7 @@ Looking at the table with the mean values for each cluster and the graph, we can
 #| label: geo-map-the-iuc
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # read shape

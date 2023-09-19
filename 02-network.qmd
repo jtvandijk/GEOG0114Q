@@ -82,7 +82,7 @@ To download our road network dataset, we first define a variable to store our bo
 #| label: ntx-osm-download
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # define our bbox coordinates for Portsmouth
@@ -123,7 +123,7 @@ Deciding what to extract is probably the more complicated aspect of this - mainl
 #| label: ntx-load-network-data
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # extract the points, with their osm_id.
@@ -139,7 +139,7 @@ To check our data set, we can quickly plot the edges of our road network using t
 #| label: ntx-network-plot
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 plot(ports_roads_edges, max.plot=1)
 ```
@@ -150,7 +150,7 @@ Because we are focusing on walking, we will overwrite the `oneway` variable by s
 #| label: ntx-one-directional-routes
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # overwrite one-way default
@@ -168,7 +168,7 @@ As for our Portsmouth scenario we are interested in calculating the shortest dis
 #| label: ntx-osm-schools-fastfood
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # download schools from OSM
@@ -188,7 +188,7 @@ We also need to then extract the relevant data from the `osmdata` object:
 #| label: ntx-osm-locations-points
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # extract school points
@@ -229,7 +229,7 @@ The `dodgr` package documentation explains that components are numbered in order
 #| label: ntx-extract-largest-graph
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # extract the largest connected graph component
@@ -253,7 +253,7 @@ Now we have our connected subgraph, will can use the `dodgr_distances()` functio
 #| label: ntx-distance-matrix
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # create a distance matrix between schools and fast-food stores
@@ -281,7 +281,7 @@ The next step of processing all depends on what you are trying to assess - here 
 #| label: ntx-aggregate-counts
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # fastfood outlets within 400m
@@ -300,7 +300,7 @@ We can then look at our outputs quickly again using the `plot()` function.
 #| label: ntx-plot-schools
 #| warnings: FALSE
 #| message: FALSE
-#| cache: TRUE
+#| cache: FALSE
 #| tidy: TRUE
 
 # set CRS for Portsmouth schools

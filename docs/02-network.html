@@ -290,7 +290,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>We will go ahead and start with downloading and extracting our road network data. To OSM data using the <code>osmdata</code> library, we can use the <code>add_osm_feature()</code> function. To use the function, we need to provided it with either a <em>bounding box</em> of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the <a href="https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html">data vignette</a>.</p>
 <p>To use the library (and API), we need to know how to write and run a query, which requires identifying the <code>key</code> and <code>value</code> that we need within our query to select the correct data. Essentially every map element (whether a point, line or polygon) in OSM is <strong>tagged</strong> with different attribute data. These <code>keys</code> and <code>values</code> are used in our queries to extract only map elements of that feature type - to find out how a feature is tagged in OSM is simply a case of <a href="https://wiki.openstreetmap.org/wiki/Tags">reading through the OSM documentation</a> and becoming familiar with their keys and values.</p>
 <p>To download our road network dataset, we first define a variable to store our bounding box coordinates, <code>p_bbox()</code>. We then use this within our OSM query to extract specific types of road segments within that bounding box - the results of our query are then stored in an <code>osmdata</code> object. We will select all OSM features with the <code>highway</code> tag that are likely to be used by pedestrians (e.g.&nbsp;not <code>motorways</code>).</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-osm-download_a3cfe95e27716118bf81bf441846cdba">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define our bbox coordinates for Portsmouth</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_bbox <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.113197</span>, <span class="fl">50.775781</span>, <span class="sc">-</span><span class="fl">1.026508</span>, <span class="fl">50.859941</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -313,7 +313,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>The <code>osmdata</code> object contains the bounding box of your query, a time-stamp of the query, and then the spatial data as <code>osm_points</code>, <code>osm_lines</code>, <code>osm_multilines</code> and <code>osm_polgyons</code> (which are listed with their respective fields also detailed). Some of the spatial features maybe empty, depending on what you asked your query to return. Our next step therefore is to extract our spatial data from our <code>osmdata</code> object to create our road network data set. This is in fact incredibly easy, using the traditional <code>$</code> R approach to access these spatial features from our object.</p>
 <p>Deciding what to extract is probably the more complicated aspect of this - mainly as you need to understand how to represent your road network, and this will usually be determined by the library/functions you will be using it within. Today, we want to extract the <strong>edges</strong> of the network, i.e.&nbsp;the lines that represent the roads, as well as the <strong>nodes</strong> of the network, i.e.&nbsp;the points that represent the locations at which the roads start, end, or intersect. For our points, we will only keep the <code>osm_id</code> data field, just in case we need to refer to this later. For our lines, we will keep a little more information that we might want to use within our transport network analysis, including the type of road, the maximum speed, and whether the road is one-way or not.</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-load-network-data_b59fa548c9ea8258e689024c34a44c29">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the points, with their osm_id.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ports_roads_nodes <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_points[, <span class="st">"osm_id"</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -323,14 +323,14 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"oneway"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To check our data set, we can quickly plot the edges of our road network using the <code>plot()</code> function:</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-network-plot_4e9554b13d623127e8011e9768a80ab1">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_roads_edges, <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02-network_files/figure-html/ntx-network-plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Because we are focusing on walking, we will overwrite the <code>oneway</code> variable by suggesting that none of the road segments are restricted to one-way traffic which may affect our analysis as well as the general connectivity of the network.</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-one-directional-routes_9730197f725a62334131db6b4a8a5aeb">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overwrite one-way default</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ports_roads_edges<span class="sc">$</span>oneway <span class="ot">&lt;-</span> <span class="st">"no"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -340,7 +340,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <h3 data-number="2.3.3" class="anchored" data-anchor-id="osm"><span class="header-section-number">2.3.3</span> Measuring accessibility</h3>
 <p>Before we can construct our full network graph for the purpose of accessibility analysis, we need to also provide our <strong>Origin</strong> and <strong>Destination</strong> points, i.e.&nbsp;the data points we wish to calculate the distances between. According to the <code>dodgr</code> documentation, these points need to be in either a vector or matrix format, containing the two coordinates for each point for the origins and for the destinations.</p>
 <p>As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets - again we will turn to OpenStreetMap. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap <code>keys</code> and <code>values</code> to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-osm-schools-fastfood_92639a10c8727329d96b5c995112ee78">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download schools from OSM</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"school"</span>) <span class="sc">%&gt;%</span></span>
@@ -352,7 +352,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We also need to then extract the relevant data from the <code>osmdata</code> object:</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-osm-locations-points_e2a583e588c2917995f667c20d819a32">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract school points</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ports_schools <span class="ot">&lt;-</span> schools<span class="sc">$</span>osm_points[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>)]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -372,7 +372,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="note">
 <p><strong>Note</strong> <br> The <code>dodgr</code> package documentation explains that components are numbered in order of decreasing size, with <code>$component = 1</code> always denoting the largest component. Always inspect the resulting subgraph to make sure that its coverage is adequate for analysis.</p>
 </div>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-extract-largest-graph_fb653d98dbf5e3ec5943d4aa5be79671">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the largest connected graph component</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>graph_connected <span class="ot">&lt;-</span> graph[graph<span class="sc">$</span>component <span class="sc">==</span> <span class="dv">1</span>, ]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -391,7 +391,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Note</strong> <br> OpenStreetMap is a living dataset, meaning that changes are made on a continuous basis; as such it may very well possible that the number of remaining road segments as shown above may be slighlty different when you run this analysis.</p>
 </div>
 <p>Now we have our connected subgraph, will can use the <code>dodgr_distances()</code> function to calculate the network distances between every possible Origin and Destination. In the <code>dodgr_distances()</code> function, we first pass our <code>graph</code>, then our Origin points (schools), in the <code>from</code> argument, and then our Destination points (fast-food outlets), in the <code>to</code> argument. One thing to note is our addition of the <code>st_coordinates()</code> function as we pass our two point data sets within the <code>from</code> and <code>to</code> functions as we need to supplement our Origins and Destinations in a matrix format. For all Origins and Destinations, <code>dodgr_distances()</code> will map the points to the <strong>closest network points</strong>, and return corresponding shortest-path distances.</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-distance-matrix_4943f3da6be79dbd98dd2f60ef49b2c5">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a distance matrix between schools and fast-food stores</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sch_to_ff_calc <span class="ot">&lt;-</span> <span class="fu">dodgr_distances</span>(graph_connected, <span class="at">from =</span> <span class="fu">st_coordinates</span>(ports_schools),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="fu">st_coordinates</span>(ports_ff), <span class="at">shortest =</span> <span class="cn">TRUE</span>, <span class="at">pairwise =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -490,7 +490,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Tip</strong> <br> The <a href="https://cran.r-project.org/web/packages/dodgr/vignettes/dodgr.html#4_Distance_Matrices:_dodgr_dists()"><code>dodgr</code> vignette</a> notes that a distance matrix obtained from running <code>dodgr_distances</code> on <code>graph_connected</code> should generally contain no <code>NA</code> values, although some points may still be effectively unreachable due to one-way connections (or streets). Thus, routing on the largest connected component of a directed graph ought to be expected to yield the minimal number of <code>NA</code> values, which may sometimes be more than zero. Note further that spatial routing points (expressed as from and/or to arguments) will in this case be mapped to the nearest vertices of <code>graph_connected</code>, rather than the potentially closer nearest points of the full graph.</p>
 </div>
 <p>The next step of processing all depends on what you are trying to assess - here we want to understand which schools have a higher accessibility of fast-food outlets compared to others, quantified by how many outlets are within walking distance of specific distances. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our <code>ports_school</code> data frame.</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-aggregate-counts_87cc5d34c57ad7676787affafcf2c006">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 400m</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_400m <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">400</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -501,7 +501,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_1km <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then look at our outputs quickly again using the <code>plot()</code> function.</p>
-<div class="cell" data-warnings="false" data-hash="02-network_cache/html/ntx-plot-schools_79d95f569b8468a86c7566861a59d458">
+<div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set CRS for Portsmouth schools</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ports_schools <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(ports_schools, <span class="dv">4326</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
