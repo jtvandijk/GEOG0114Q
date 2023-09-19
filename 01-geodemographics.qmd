@@ -63,6 +63,7 @@ knitr::include_graphics('images/w07/iuc_excel.png')
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # load libraries
 library(tidyverse)
@@ -99,6 +100,7 @@ Now we got the administrative boundary data, we can prepare the IUC map by joini
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # load libraries
 library(sf)
@@ -131,6 +133,7 @@ Let's use the same colours as used on [CDRC mapmaker](https://mapmaker.cdrc.ac.u
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # define palette
 iuc_colours <- c('#dd7cdc','#ea4d78','#d2d1ab','#f36d5a','#a5cfbc','#e4a5d0','#8470ff','#79cdcd','#808fee','#ffd39b')
@@ -181,6 +184,7 @@ The data set contains the following variables:
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # load data
 iuc_input <- read_csv('data/index/msoa_iuc_input.csv')
@@ -197,6 +201,7 @@ Before running our **k-means** clustering algorithm, we need to extract the data
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # column names
 names(iuc_input)
@@ -216,6 +221,7 @@ We also need to rescale the data so all input data are presented on a comparable
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # rescale
 cluster_data <- scale(cluster_data) 
@@ -239,12 +245,14 @@ The elbow method can help as it plots the total explained variation ('Within Sum
 options(max.print = 15)
 ```
 
+
 ```{r}
 #| label: geo-elbows-and-plots
 #| warnings: FALSE
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # create empty list to store the within sum of square values 
 wss_values <- list()
@@ -290,6 +298,7 @@ Now we have decided on the number of clusters (i.e. **7** clusters), we can run 
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # create empty list to store the results of the clustering
 clusters <- list()
@@ -330,6 +339,7 @@ We now have to execute a bit of post-processing to extract some useful summary d
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # assign to new variable for clarity
 kfit <- clusters
@@ -370,6 +380,7 @@ Looking at the table with the mean values for each cluster and the graph, we can
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # read shape
 msoa <- st_read('data/boundaries/gb_msoa11_sim.shp')

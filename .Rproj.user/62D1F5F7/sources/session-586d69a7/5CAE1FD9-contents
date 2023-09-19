@@ -1,0 +1,27 @@
+# Module overview {.unnumbered}
+
+```{r}
+#| label: module-overview-figure
+#| echo: FALSE
+#| cache: TRUE
+knitr::include_graphics('images/general/data_science_welcome_sm.jpg') 
+```
+
+| Week | Section                  | Topic                                                                                 |
+|:---------------|:------------------|:-------------------------------------|
+| 1    | Foundational Concepts    | [Spatial analysis for data science](https://uclpg-msc-sgds.github.io/GEOG0114)        |
+| 2    | Foundational Concepts    | [Graphical representation of spatial data](https://uclpg-msc-sgds.github.io/GEOG0114) |
+| 3    | Foundational Concepts    | [Spatial autocorrelation](https://uclpg-msc-sgds.github.io/GEOG0114/)                 |
+| 4    | Raster data              | [Suitability Mapping I](https://uclpg-msc-sgds.github.io/GEOG0114/)                   |
+| 5    | Raster data              | [Suitability Mapping II](https://uclpg-msc-sgds.github.io/GEOG0114/)                  |
+|      | **Reading week**         | **Reading week**                                                                      |
+| 6    | Raster data              | [Geostatistics using Kriging](https://uclpg-msc-sgds.github.io/GEOG0114/)             |
+| 7    | Applied Spatial Analysis | [Geodemographics](01-geodemographics.html)                                               |
+| 8    | Applied Spatial Analysis | [Transport network analysis](02-transport-network-analysis.html)                         |
+| 9    | Spatial models           | [Spatial models I](https://uclpg-msc-sgds.github.io/GEOG0114/)                        |
+| 10   | Spatial models           | [Spatial models II](https://uclpg-msc-sgds.github.io/GEOG0114/)                       |
+
+:::note
+**Note** <br /> 
+This GitHub page contains the material for Week 07 ([Geodemographics](geodemographics.html)) and Week 08 ([Transport network analysis](transport-network-analysis.html)) of **Principles of Spatial Analysis** 2023-2024. The content for 2022-2023 has been archived and can be found here: [\[Link\]](https://jtvandijk.github.io/GEOG0114_20222023)
+:::

@@ -1,7 +1,10 @@
 /*--- warning ---*/
 .warning {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   background-color: #FEE;
   color: #722;
 }
@@ -13,8 +16,8 @@
   padding-top: 10px;
   padding-bottom: 5px;
   margin-bottom: 10px;
-  background-color: #e6f2ff;
-  color: #525252;
+  background-color: #e5f5e0;
+  color: #000000;
 }
 
 /*--- tip ---*/
@@ -24,8 +27,8 @@
   padding-top: 10px;
   padding-bottom: 5px;
   margin-bottom: 10px;
-  background-color: #FDEAD7;
-  color: #525252;
+  background-color: #efedf5;
+  color: #000000;
 }
 
 .cell-output {

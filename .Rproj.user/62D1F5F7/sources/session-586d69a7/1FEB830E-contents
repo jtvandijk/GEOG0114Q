@@ -50,6 +50,7 @@ We can now load the required libraries as well as the major towns and cities bou
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # libraries
 library(tidyverse)
@@ -84,6 +85,7 @@ To download our road network dataset, we first define a variable to store our bo
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # define our bbox coordinates for Portsmouth
 p_bbox <- c(-1.113197,50.775781,-1.026508,50.859941)
@@ -107,6 +109,7 @@ You can load these downloaded data as follows into R:
 #| cache: FALSE
 #| eval: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 load('../path/to/file/ports_ff.RData')
 load('../path/to/file/ports_roads_edges.RData')
 load('../path/to/file/ports_schools.RData')
@@ -125,6 +128,7 @@ Deciding what to extract is probably the more complicated aspect of this - mainl
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # extract the points, with their osm_id.
 ports_roads_nodes <- osmdata$osm_points[, "osm_id"]
@@ -141,6 +145,8 @@ To check our data set, we can quickly plot the edges of our road network using t
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
+
 plot(ports_roads_edges, max.plot=1)
 ```
 
@@ -152,6 +158,7 @@ Because we are focusing on walking, we will overwrite the `oneway` variable by s
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # overwrite one-way default
 ports_roads_edges$oneway <- "no"
@@ -170,6 +177,7 @@ As for our Portsmouth scenario we are interested in calculating the shortest dis
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # download schools from OSM
 schools <- opq(bbox = p_bbox) %>%
@@ -190,6 +198,7 @@ We also need to then extract the relevant data from the `osmdata` object:
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # extract school points
 ports_schools <- schools$osm_points[ , c("osm_id", "name")]
@@ -213,6 +222,7 @@ With any network analysis, the main data structure is a **graph**, constructed b
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # create network graph  with the foot weighting profile
 graph <- weight_streetnet(ports_roads_edges, wt_profile = "foot")
@@ -231,6 +241,7 @@ The `dodgr` package documentation explains that components are numbered in order
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # extract the largest connected graph component
 graph_connected <- graph[graph$component == 1, ]
@@ -255,6 +266,7 @@ Now we have our connected subgraph, will can use the `dodgr_distances()` functio
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # create a distance matrix between schools and fast-food stores
 sch_to_ff_calc <- dodgr_distances(graph_connected, from=st_coordinates(ports_schools), to= st_coordinates(ports_ff), shortest = TRUE, pairwise = FALSE, quiet=FALSE)
@@ -262,7 +274,14 @@ sch_to_ff_calc <- dodgr_distances(graph_connected, from=st_coordinates(ports_sch
 
 The result of this computation is a distance-matrix that contains the network distances between all Origins (i.e. schools) and all Destinations (i.e. fast-food outlets). Let's inspect the first row of our output. Do you understand what the values mean?
 
-```{r data_check, warnings=FALSE, message=FALSE, cache=TRUE, tidy=TRUE}
+```{r}
+#| label: ntx-data-check
+#| warnings: FALSE
+#| message: FALSE 
+#| cache: TRUE
+#| tidy: TRUE
+#| filename: "R code"
+
 # inspect
 head(sch_to_ff_calc, n=1)
 ```
@@ -283,6 +302,7 @@ The next step of processing all depends on what you are trying to assess - here 
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # fastfood outlets within 400m
 ports_schools$ff_within_400m <- rowSums(sch_to_ff_calc <= 400)
@@ -302,6 +322,7 @@ We can then look at our outputs quickly again using the `plot()` function.
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # set CRS for Portsmouth schools
 ports_schools <- st_set_crs(ports_schools, 4326)
@@ -318,6 +339,7 @@ Just from this simple plot, we can see across our distances some clear geographi
 #| message: FALSE
 #| cache: FALSE
 #| tidy: TRUE
+#| filename: "R code"
 
 # create proportional symbol map
 tmap_mode("plot")

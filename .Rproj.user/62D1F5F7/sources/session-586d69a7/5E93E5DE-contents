@@ -1,7 +1,9 @@
+# project
 project:
   type: book
   output-dir: docs
-  
+
+# front matter
 book:
   title: "GEOG0114 Principles of Spatial Analysis"
   author: "Justin van Dijk"
@@ -12,10 +14,11 @@ book:
     - 01-geodemographics.qmd
     - 02-network.qmd
 
+# output
 format:
   html:
     theme: 
-      minty
+      flatly
     css:
       custom.css
     code-overflow: wrap
@@ -23,12 +26,9 @@ format:
       source: https://github.com/jtvandijk/GEOG0114Q
       toggle: false
       caption: none
-    code-block-border-left: "#99d8c9"
     code-block-bg: "#f0f0f0"
-# pdf:
-#    documentclass: scrreprt
-#    prefer-html: true
 
+# misc
 title-block-banner: false
 editor: source
 

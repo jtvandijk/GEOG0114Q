@@ -1,7 +1,7 @@
 # Module overview {.unnumbered}
 
 ```{r}
-#| label: "module_overview_figure"
+#| label: module-overview-figure
 #| echo: FALSE
 #| cache: TRUE
 knitr::include_graphics('images/general/data_science_welcome_sm.jpg') 
