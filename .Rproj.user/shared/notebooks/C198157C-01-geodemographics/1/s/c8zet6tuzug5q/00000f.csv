@@ -1,0 +1,8 @@
+"0","#| label: geo-settings-and-options"
+"0","#| warnings: FALSE"
+"0","#| message: FALSE"
+"0","#| cache: FALSE"
+"0","#| echo: FALSE"
+"0",""
+"0","# settings"
+"0","options(max.print = 15)"

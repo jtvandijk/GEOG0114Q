@@ -1,0 +1,4 @@
+"0","#| label: geo-iuc-in-excel"
+"0","#| echo: FALSE"
+"0","#| fig.cap: 'GB IUC 2018 in Excel.'"
+"0","knitr::include_graphics('images/w07/iuc_excel.png')"
