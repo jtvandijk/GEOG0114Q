@@ -439,8 +439,8 @@ Looking at the table with the mean values for each cluster and the barplot, we c
 # plot using ggplot2  
 ggplot(kfit_mean_long[kfit_mean_long$cluster==1,], aes(x=cluster, y=value, fill=name)) + 
   geom_bar(stat='identity', position="dodge") +
-  xlab('Value') +
-  ylab('Cluster') +
+  xlab('Cluster') +
+  ylab('Mean value') +
   theme_minimal() +
   theme(legend.title = element_blank(),
        legend.position = "bottom")
@@ -475,6 +475,10 @@ tm_shape(msoa) +
   tm_fill(col='kfit$cluster') +
   tm_layout(legend.outside=TRUE)
 ```
+
+::: {.callout-warning}
+Your map might look different as the cluster numbers are not consistently assigned and therefore colours can be map onto the cluster numbers differently.
+:::
 
 ### Tutorial task II {#task-geo-2}
 
