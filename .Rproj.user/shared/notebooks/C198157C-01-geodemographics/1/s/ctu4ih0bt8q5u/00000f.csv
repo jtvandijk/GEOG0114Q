@@ -1,4 +1,0 @@
-"0","#| label: geo-iuc-download"
-"0","#| echo: FALSE"
-"0","#| fig.cap: ""Download the GB IUC 2018."""
-"0","knitr::include_graphics('images/w07/iuc_download.png')"

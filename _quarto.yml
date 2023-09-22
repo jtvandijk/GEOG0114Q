@@ -7,7 +7,7 @@ project:
 book:
   title: "GEOG0114 Principles of Spatial Analysis"
   author: "Justin van Dijk"
-  date: "9/19/2023"
+  date: "9/22/2023"
   chapters:
   
     - index.qmd
@@ -27,6 +27,7 @@ format:
       toggle: false
       caption: none
     code-block-bg: "#f0f0f0"
+    callout-appearance: simple
 
 # misc
 title-block-banner: false

@@ -1,0 +1,10 @@
+# global variables
+
+urls:
+  git-url-am: "https://uclpg-msc-sgds.github.io/GEOG0114"
+  geodemographics: "01-geodemographics.html"
+  transport-ntx: "02-network.html"
+
+slides:
+  week07: "https://github.com/jtvandijk/GEOG0114Q/tree/master/slides/w07_psa.pdf"
+  week08: "https://github.com/jtvandijk/GEOG0114Q/tree/master/slides/w08_psa.pdf"

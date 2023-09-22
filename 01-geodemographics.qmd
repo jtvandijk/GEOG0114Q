@@ -1,10 +1,10 @@
 # Geodemographics
 
-This week we will see how we can use socio-demographic and socio-economic data to characterise neighbourhoods using **geodemographics**. Geodemographics is the "*analysis of people by where they live' (Harris et al. 2005) and as such entails representing the individual and collective identities that are manifest in observable neighbourhood structure*" ([Longley 2012](https://www.tandfonline.com/doi/pdf/10.1080/13658816.2012.719623?needAccess=true)). We will look at geodemographics by focusing on a existing geodemographic classification known as the [Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification).
+This week we will see how we can use socio-demographic and socio-economic data to characterise neighbourhoods using **geodemographics**. Geodemographics is the "*analysis of people by where they live (Harris et al. 2005) and as such entails representing the individual and collective identities that are manifest in observable neighbourhood structure*" ([Longley 2012]( https://doi.org/10.1080/13658816.2012.719623)). We will look at geodemographics by focusing on an existing geodemographic classification known as the [Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification).
 
 ## Lecture slides {#lecture_w07}
 
-You can download the slides of this week's lecture here: [\[Link\]](https://github.com/jtvandijk/GEOG0114/tree/master/slides/w07_psa.pdf).
+You can download the slides of this week's lecture here: [\[Link\]]({{< var slides.week07 >}}).
 
 ## Reading list {#reading_w07}
 
@@ -21,9 +21,9 @@ You can download the slides of this week's lecture here: [\[Link\]](https://gith
 
 ## Geodemographics
 
-The [CDRC Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification) (IUC) is a bespoke geodemographic classification that describes how people residing in different parts of Great Britain interact with the Internet. For every Lower Super Output Area (LSOA) in England and Wales and Data Zone (DZ) ([2011 Census Geographies](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)), the IUC provides aggregate population estimates of Internet use ([Singleton *et al.* 2020](https://www.sciencedirect.com/science/article/pii/S0198971519307963)) and provides insights into the geography of the digital divide in the United Kingdom.
+The [CDRC Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification) (IUC) is a bespoke geodemographic classification that describes how people residing in different parts of Great Britain interact with the Internet. For every Lower Super Output Area (LSOA) in England and Wales and Data Zone (DZ) ([2011 Census Geographies](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)), the IUC provides aggregate population estimates of Internet use and provides insights into the geography of the digital divide in the United Kingdom:
 
-> "Digital inequality is observable where access to online resources and those opportunities that these create are non-egalitarian. As a result of variable rates of access and use of the Internet between social and spatial groups (..), this leads to digital differentiation, which entrenches difference and reciprocates digital inequality over time ([Singleton *et al.* 2020](https://www.sciencedirect.com/science/article/pii/S0198971519307963))."
+> "Digital inequality is observable where access to online resources and those opportunities that these create are non-egalitarian. As a result of variable rates of access and use of the Internet between social and spatial groups (..), this leads to digital differentiation, which entrenches difference and reciprocates digital inequality over time" ([Singleton *et al.* 2020](https://doi.org/10.1016/j.compenvurbsys.2020.101486)).
 
 ### Internet User Classification I
 
@@ -41,19 +41,21 @@ Our first step is to download the IUC data set:
 #| label: geo-iuc-download
 #| echo: FALSE
 #| fig.cap: "Download the GB IUC 2018."
+#| out.width: "90%"
 knitr::include_graphics('images/w07/iuc_download.png')
 ```
 
 Start by inspecting the data set in MS Excel, or any other spreadsheet software such as [Apache OpenOffice Calc](https://www.openoffice.org/product/calc.html) or [Numbers](https://www.apple.com/uk/numbers/). Also, have a look at the [IUC 2018 User Guide](https://data.cdrc.ac.uk/system/files/iuc2018userguide.pdf) that provides the **pen portraits** of every cluster, including plots of cluster centres and a brief summary of the methodology.
 
-::: tip
-**Tip**<br/> It is always a good idea to inspect your data prior to analysis to find out how your data look like. Of course, depending on the type of data, you can choose any tool you like to do this inspection ([ArcGIS](https://www.arcgis.com/index.html), [R](https://www.r-project.org/), [QGIS](https://qgis.org/en/site/), [Microsoft Excel](https://www.office.com/), etc.).
+::: {.callout-tip}
+It is always a good idea to inspect your data prior to analysis to find out how your data look like. Of course, depending on the type of data, you can choose any tool you like to do this inspection ([ArcGIS](https://www.arcgis.com/index.html), [R](https://www.r-project.org/), [QGIS](https://qgis.org/en/site/), [Microsoft Excel](https://www.office.com/), etc.).
 :::
 
 ```{r}
 #| label: geo-iuc-in-excel
 #| echo: FALSE
-#| fig.cap: 'GB IUC 2018 in Excel.'
+#| fig.cap: "GB IUC 2018 in Excel."
+#| out.width: "100%"
 knitr::include_graphics('images/w07/iuc_excel.png')
 ```
 
@@ -97,8 +99,8 @@ Now the data are loaded we can move to acquiring our spatial data. As the IUC is
 5.  Wait until loaded and download the `BoundaryData.zip` file.
 6.  Unzip and save the file.
 
-::: note
-**Note**<br/> You could also have downloaded the shapefile with the data already joined to the LSOA boundaries directly from the CDRC data portal, but this is the national data set and is quite large (75MB). Also, as we will be looking at [Liverpool](https://en.wikipedia.org/wiki/Liverpool) today we do not need all LSOAs in Great Britain..
+::: {.callout-note}
+You could also have downloaded the shapefile with the data already joined to the LSOA boundaries directly from the CDRC data portal, but this is the national data set and is quite large (75MB). Also, as we will be looking at [Liverpool](https://en.wikipedia.org/wiki/Liverpool) today we do not need all LSOAs in Great Britain..
 :::
 
 Now we got the administrative boundary data, we can prepare the IUC map by joining our `csv` file with the IUC classification to the `shapefile`.
@@ -146,10 +148,10 @@ liv_iuc
 #| filename: "R code"
 
 # inspect
-tmap_mode('view')
-tm_shape(liv_iuc) +
-  tm_fill(col='GRP_LABEL') +
-  tm_layout(legend.outside=TRUE)
+# tmap_mode('view')
+# tm_shape(liv_iuc) +
+#  tm_fill(col='GRP_LABEL') +
+#  tm_layout(legend.outside=TRUE)
 ```
 
 Let's use the same colours as used on [CDRC mapmaker](https://mapmaker.cdrc.ac.uk/#/internet-user-classification?lon=-2.81187&lat=53.31045&zoom=9.58) by specifying the **hex** colour codes for each of our groups. Note the order of the colours is important: the colour for group 1 is first, group 2 second and so on.
@@ -322,8 +324,8 @@ ggplot(data=wss_values, aes(x=cluster,y=wss)) +
 
 Based on the elbow plot, we can now choose the number of clusters and it looks like **7** clusters would be a reasonable choice.
 
-:::note 
-**Note**<br/> The interpretation of an elbow plot can be quite subjective and often multiple options would be justified: **6**, **8**, and perhaps **9** clusters also do not look unreasonable. You would need to try the different options and see what output you get to determine the 'optimal' solution. However, at very least, the elbow plot does give you an idea of what would potentially be an adequate number of clusters. 
+::: {.callout-note}
+The interpretation of an elbow plot can be quite subjective and often multiple options would be justified: **6**, **8**, and perhaps **9** clusters also do not look unreasonable. You would need to try the different options and see what output you get to determine the 'optimal' solution. However, at very least, the elbow plot does give you an idea of what would potentially be an adequate number of clusters. 
 :::
 
 Now we have decided on the number of clusters (i.e. **7** clusters), we can run our cluster analysis. We will be running this analysis 10 times because there is an element of randomness within the clustering, and we want to make sure we get the optimal clustering output.
@@ -412,8 +414,8 @@ ggplot(kfit_mean_long, aes(x=cluster, y=value, colour=name)) +
 
 Looking at the table with the mean values for each cluster and the graph, we can see, for instance, that only **cluster 2** shows a clear pattern with Internet usage. The graph is a little busy, so you might want to look at the cluster groups or variables individually to get a better picture of each cluster.
 
-::: note
-**Note** <br/> Your values may be slightly different because there is this element of randomness within the clustering.
+::: {.callout-warning}
+Your values may be slightly different due to the random choice of initial cluster centres.
 :::
 
 ```{r}
@@ -438,9 +440,9 @@ cluster_data <- cbind(iuc_input,kfit$cluster)
 msoa <- left_join(msoa,cluster_data,by=c('geo_code'='msoa11cd'))
 
 # plot
-tmap_mode('view')
-tm_shape(msoa) +
-  tm_fill(col='kfit$cluster')
+# tmap_mode('view')
+# tm_shape(msoa) +
+#  tm_fill(col='kfit$cluster')
 ```
 
 ### Tutorial task II {#task_geo_2}
