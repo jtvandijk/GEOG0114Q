@@ -32,8 +32,13 @@ format:
     callout-appearance: simple
   pdf: 
     pdf-engine: xelatex
-    code-overflow: wrap
-      
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+
 # misc
 title-block-banner: false
 editor: source
