@@ -5,7 +5,7 @@
 #| echo:  FALSE
 #| cache: TRUE
 #| out.width: "100%"
-knitr::include_graphics('images/general/data_science_welcome_sm.jpg') 
+knitr::include_graphics('images/w00/data-science-welcome-sm.jpg') 
 ```
 
 | Week | Section                  | Topic |

@@ -21,7 +21,7 @@ format:
       flatly
     css:
       custom.css
-    code-overflow: wrap
+    code-overflow: scroll
     code-tools: 
       source: https://github.com/jtvandijk/GEOG0114Q
       toggle: false

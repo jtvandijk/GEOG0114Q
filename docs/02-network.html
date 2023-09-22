@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#lecture_w08" id="toc-lecture_w08" class="nav-link active" data-scroll-target="#lecture_w08"><span class="header-section-number">2.1</span> Lecture slides</a></li>
+  <li><a href="#lecture-w08" id="toc-lecture-w08" class="nav-link active" data-scroll-target="#lecture-w08"><span class="header-section-number">2.1</span> Lecture slides</a></li>
   <li><a href="#reading-w08" id="toc-reading-w08" class="nav-link" data-scroll-target="#reading-w08"><span class="header-section-number">2.2</span> Reading list</a></li>
   <li><a href="#transport-network-analysis" id="toc-transport-network-analysis" class="nav-link" data-scroll-target="#transport-network-analysis"><span class="header-section-number">2.3</span> Transport Network Analysis</a>
   <ul class="collapse">
@@ -196,9 +196,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>This week we will cover a different type of data: network data. We will take a look at how we can use network data to measure accessibility using the <code>dodgr</code> R library. We will calculate the network distances between combinations of locations (i.e.&nbsp;a set of origins and a set of destinations). These distances can then, for instance, be used to calculate the number of a resource (e.g.&nbsp;fast-food outlets) within a certain distance of a Point of Interest (e.g.&nbsp;a school or population-weighted centroid).</p>
-<section id="lecture_w08" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="lecture_w08"><span class="header-section-number">2.1</span> Lecture slides</h2>
-<p>You can download the slides of this week’s lecture here: <a href="https://github.com/jtvandijk/GEOG0114/tree/master/slides/w08_psa.pdf">[Link]</a>.</p>
+<section id="lecture-w08" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="lecture-w08"><span class="header-section-number">2.1</span> Lecture slides</h2>
+<p>You can download the slides of this week’s lecture here: <a href="https://github.com/jtvandijk/GEOG0114Q/tree/master/slides/w08-psa.pdf">[Link]</a>.</p>
 </section>
 <section id="reading-w08" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="reading-w08"><span class="header-section-number">2.2</span> Reading list</h2>
@@ -224,10 +224,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The term network analysis covers a wide range of analysis techniques ranging from complex network analysis to social network analysis, and from link analysis to transport network analysis. What the techniques have in common is that they are based on the concept of a <strong>network</strong>. A network or network graph is constituted by a collection of vertices that are connected to one another by edges. Note, vertices may also be called nodes or points, whilst edges may be called links or lines. Within social network analysis, you may find the terms actors (the vertices) and ties or relations (the edges) also used.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div id="fig-ntx-network-graph-example" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/w08/network-graph.png" class="img-fluid figure-img" width="640"></p>
-<figcaption class="figure-caption">Visualising networks with vertices and edges.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Visualising networks with vertices and edges.</figcaption>
 </figure>
 </div>
 </div>
@@ -236,8 +236,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="accessibility-in-portsmouth"><span class="header-section-number">2.3.1</span> Accessibility in Portsmouth</h3>
 <p>For this week’s practical, we will be using Portsmouth in the UK as our area of interest for our analysis. One prominent topic within the city is the issue of public health and childhood obesity. According to figures released in March 2020 by Public Health England, more than one in three school pupils are overweight or obese by the time they finish primary school within the city; this is much higher than the national average of one in four. One potential contributor to the health crisis is the ease and availability of fast-food outlets in the city. In the following, we will measure the accessibility of fast-food outlets within specific walking distances of all school in Portsmouth starting at 400m, then 800m and finally a 1km walking distance. We will then aggregate these results to Lower Super Output Areas (LSOA) and overlay these results with some socio-economic variables.</p>
 <p>To execute this analysis, we will need to first calculate the distances between our schools and fast-food outlets. This involves calculating the shortest distance a child would walk between a school and a fast-food outlet, using roads or streets. We will use the <code>dodgr</code> R package to conduct this transport network analysis.</p>
-<div class="note">
-<p><strong>Note</strong><br> All calculations within the <code>dodgr</code> library currently need to be run in WGS84/4236. This is why we will not transform the CRS of our data in this practical.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>All calculations within the <code>dodgr</code> library currently need to be run in WGS84/4236. This is why we will not transform the CRS of our data in this practical.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="loading-data-ntx" class="level3" data-number="2.3.2">
@@ -288,8 +295,15 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>To create our network and Origin-Destination dataset, we will need data on schools, fast-food outlets, and a streetnetwork. Today we will be using <a href="https://www.openstreetmap.org">OpenStreetMap</a> for this. If you have never come across OpenStreetMap (OSM) before, it is a free editable map of the world.</p>
-<div class="note">
-<p><strong>Note</strong> <br> Note OpenStreetMap’s spatial coverage is still unequal across the world - plus, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g.&nbsp;types of roads and their speed limits, to complete specific types of spatial analysis.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>OpenStreetMap’s spatial coverage is still unequal across the world - plus, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g.&nbsp;types of roads and their speed limits, to complete specific types of spatial analysis.</p>
+</div>
+</div>
 </div>
 <p>Whilst there are <a href="https://wiki.openstreetmap.org/wiki/Downloading_data">various approaches</a> to downloading data from OpenStreetMap, we will use the <code>osmdata</code> library to directly extract our required OpenStreetMap (OSM) data into a variable. The <code>osmdata</code> library grants access within R to the <a href="https://overpass-turbo.eu/">Overpass API</a> that allows us to run queries on OSM data and then import the data as spatial objects. These queries are at the heart of these data downloads.</p>
 <p>We will go ahead and start with downloading and extracting our road network data. To OSM data using the <code>osmdata</code> library, we can use the <code>add_osm_feature()</code> function. To use the function, we need to provided it with either a <em>bounding box</em> of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the <a href="https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html">data vignette</a>.</p>
@@ -311,8 +325,13 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="note">
-<p><strong>Note</strong> <br> In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains <strong>all</strong> required OSM Portsmouth data instead: <a href="https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/osm_portmouth.zip">[Link]</a>.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains <strong>all</strong> required OSM Portsmouth data instead: <a href="https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/osm_portmouth.zip">[Link]</a>.</p>
 <p>You can load these downloaded data as follows into R:</p>
 <div class="cell">
 <div class="code-with-filename">
@@ -326,6 +345,8 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>After loading your data, you can continue with the analysis in the <a href="#osm">Measuring Accessiblity</a> section below, starting with the creation of a network graph with the ‘foot weighting’ profile.</p>
 </div>
+</div>
+</div>
 <p>The <code>osmdata</code> object contains the bounding box of your query, a time-stamp of the query, and then the spatial data as <code>osm_points</code>, <code>osm_lines</code>, <code>osm_multilines</code> and <code>osm_polgyons</code> (which are listed with their respective fields also detailed). Some of the spatial features maybe empty, depending on what you asked your query to return. Our next step therefore is to extract our spatial data from our <code>osmdata</code> object to create our road network data set. This is in fact incredibly easy, using the traditional <code>$</code> R approach to access these spatial features from our object.</p>
 <p>Deciding what to extract is probably the more complicated aspect of this - mainly as you need to understand how to represent your road network, and this will usually be determined by the library/functions you will be using it within. Today, we want to extract the <strong>edges</strong> of the network, i.e.&nbsp;the lines that represent the roads, as well as the <strong>nodes</strong> of the network, i.e.&nbsp;the points that represent the locations at which the roads start, end, or intersect. For our points, we will only keep the <code>osm_id</code> data field, just in case we need to refer to this later. For our lines, we will keep a little more information that we might want to use within our transport network analysis, including the type of road, the maximum speed, and whether the road is one-way or not.</p>
 <div class="cell">
@@ -333,7 +354,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the points, with their osm_id.</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the `p`oints, with their osm_id.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ports_roads_nodes <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_points[, <span class="st">"osm_id"</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the lines, with their osm_id, name, type of highway, max speed and</span></span>
@@ -348,10 +369,16 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_roads_edges, <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_roads_edges, <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<p><img src="02-network_files/figure-html/ntx-network-plot-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ntx-network-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-network_files/figure-html/fig-ntx-network-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.2: OSM road network</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <p>Because we are focusing on walking, we will overwrite the <code>oneway</code> variable by suggesting that none of the road segments are restricted to one-way traffic which may affect our analysis as well as the general connectivity of the network.</p>
@@ -400,8 +427,15 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>We now have our road network data and our Origin-Destination (OD) points in place and we can now move to construct our network graph and run our transport network analysis.</p>
-<div class="note">
-<p><strong>Note</strong> <br> In this analysis, we are highly reliant on the use of OpenStreetMap to provide data for both our Origins and Destinations. Whilst in the UK OSM provides substantial coverage, its quality is not always guaranteed. As a result, to improve on our current methodology in future analysis, we should investigate into a more official school data set or at least validate the number of schools against City Council records. The same applies to our fast-food outlets.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In this analysis, we are highly reliant on the use of OpenStreetMap to provide data for both our Origins and Destinations. Whilst in the UK OSM provides substantial coverage, its quality is not always guaranteed. As a result, to improve on our current methodology in future analysis, we should investigate into a more official school data set or at least validate the number of schools against City Council records. The same applies to our fast-food outlets.</p>
+</div>
+</div>
 </div>
 <p>With any network analysis, the main data structure is a <strong>graph</strong>, constructed by our nodes and edges. To create a graph for use within <code>dodgr</code>, we pass our <code>ports_roads_edges()</code> into the <code>weight_streetnet()</code> function. The <code>dodgr</code> library also contains weighting profiles, that you can customise, for use within your network analysis. These weighting profiles contain weights based on the type of road, determined by the type of transportation the profile aims to model. Here we will use the weighting profile <strong>foot</strong>, as we are looking to model walking accessibility.</p>
 <div class="cell">
@@ -414,8 +448,15 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>Once we have our graph, we can then use this to calculate our network distances between our OD points. One thing to keep in mind is that potentially not all individual components in the network that we extracted are connected, for instance, because the bounding box cut off the access road of a <a href="https://en.wikipedia.org/wiki/Dead_end_(street)">cul-de-sac</a>. To make sure that our entire extracted network is connected, we now extract the <strong>largest connected component</strong> of the graph. You can use <code>table(graph$component)</code> to examine the sizes of all individual subgraphs. You will notice that most subgraphs consist of a very small number of edges.</p>
-<div class="note">
-<p><strong>Note</strong> <br> The <code>dodgr</code> package documentation explains that components are numbered in order of decreasing size, with <code>$component = 1</code> always denoting the largest component. Always inspect the resulting subgraph to make sure that its coverage is adequate for analysis.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <code>dodgr</code> package documentation explains that components are numbered in order of decreasing size, with <code>$component = 1</code> always denoting the largest component. Always inspect the resulting subgraph to make sure that its coverage is adequate for analysis.</p>
+</div>
+</div>
 </div>
 <div class="cell">
 <div class="code-with-filename">
@@ -431,14 +472,26 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 56364</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect on a plot</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dodgr_to_sf</span>(graph_connected), <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02-network_files/figure-html/ntx-extract-largest-graph-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ntx-extract-largest-graph" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-network_files/figure-html/fig-ntx-extract-largest-graph-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.3: Largest graph component</figcaption>
+</figure>
 </div>
 </div>
-<div class="note">
-<p><strong>Note</strong> <br> OpenStreetMap is a living dataset, meaning that changes are made on a continuous basis; as such it may very well possible that the number of remaining road segments as shown above may be slighlty different when you run this analysis.</p>
+</div>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>OpenStreetMap is a living dataset, meaning that changes are made on a continuous basis; as such it may very well possible that the number of remaining road segments as shown above may be slighlty different when you run this analysis.</p>
+</div>
+</div>
 </div>
 <p>Now we have our connected subgraph, will can use the <code>dodgr_distances()</code> function to calculate the network distances between every possible Origin and Destination. In the <code>dodgr_distances()</code> function, we first pass our <code>graph</code>, then our Origin points (schools), in the <code>from</code> argument, and then our Destination points (fast-food outlets), in the <code>to</code> argument. One thing to note is our addition of the <code>st_coordinates()</code> function as we pass our two point data sets within the <code>from</code> and <code>to</code> functions as we need to supplement our Origins and Destinations in a matrix format. For all Origins and Destinations, <code>dodgr_distances()</code> will map the points to the <strong>closest network points</strong>, and return corresponding shortest-path distances.</p>
 <div class="cell">
@@ -546,8 +599,15 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <p>Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently should not have any <code>NA</code> values.</p>
-<div class="tip">
-<p><strong>Tip</strong> <br> The <a href="https://cran.r-project.org/web/packages/dodgr/vignettes/dodgr.html#4_Distance_Matrices:_dodgr_dists()"><code>dodgr</code> vignette</a> notes that a distance matrix obtained from running <code>dodgr_distances</code> on <code>graph_connected</code> should generally contain no <code>NA</code> values, although some points may still be effectively unreachable due to one-way connections (or streets). Thus, routing on the largest connected component of a directed graph ought to be expected to yield the minimal number of <code>NA</code> values, which may sometimes be more than zero. Note further that spatial routing points (expressed as from and/or to arguments) will in this case be mapped to the nearest vertices of <code>graph_connected</code>, rather than the potentially closer nearest points of the full graph.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <a href="https://cran.r-project.org/web/packages/dodgr/vignettes/dodgr.html#4_Distance_Matrices:_dodgr_dists()"><code>dodgr</code> vignette</a> notes that a distance matrix obtained from running <code>dodgr_distances</code> on <code>graph_connected</code> should generally contain no <code>NA</code> values, although some points may still be effectively unreachable due to one-way connections (or streets). Thus, routing on the largest connected component of a directed graph ought to be expected to yield the minimal number of <code>NA</code> values, which may sometimes be more than zero. Note further that spatial routing points (expressed as from and/or to arguments) will in this case be mapped to the nearest vertices of <code>graph_connected</code>, rather than the potentially closer nearest points of the full graph.</p>
+</div>
+</div>
 </div>
 <p>The next step of processing all depends on what you are trying to assess - here we want to understand which schools have a higher accessibility of fast-food outlets compared to others, quantified by how many outlets are within walking distance of specific distances. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our <code>ports_school</code> data frame.</p>
 <div class="cell">
@@ -565,51 +625,22 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_1km <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>We can then look at our outputs quickly again using the <code>plot()</code> function.</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>R code</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set CRS for Portsmouth schools</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ports_schools <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(ports_schools, <span class="dv">4326</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot results</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_schools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output-display">
-<p><img src="02-network_files/figure-html/ntx-plot-schools-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Just from this simple plot, we can see across our distances some clear geographical patterns in accessibility of fast-food outlets for schools. We can improve this plot by making a proportional symbols map that show the different counts of fast-food outlets for each school in Portsmouth with a background of the Portsmouth City outline that you loaded at the beginning of this practical.</p>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>R code</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create proportional symbol map</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(portsmouth_city) <span class="sc">+</span> <span class="fu">tm_fill</span>(<span class="at">palette =</span> <span class="st">"grey"</span>) <span class="sc">+</span> <span class="fu">tm_shape</span>(ports_schools) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_bubbles</span>(<span class="at">size =</span> <span class="st">"ff_within_400m"</span>, <span class="at">col =</span> <span class="st">"skyblue4"</span>, <span class="at">style =</span> <span class="st">"pretty"</span>, <span class="at">scale =</span> <span class="dv">1</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">border.col =</span> <span class="st">"white"</span>, <span class="at">title.size =</span> <span class="st">"Total Count"</span>) <span class="sc">+</span> <span class="fu">tm_layout</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"left"</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"top"</span>), <span class="at">legend.text.size =</span> <span class="dv">1</span>, <span class="at">main.title =</span> <span class="st">"Fast-food outlets within 400m of a school"</span>,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">main.title.size =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">tm_compass</span>(<span class="at">type =</span> <span class="st">"arrow"</span>, <span class="at">position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"top"</span>)) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">"left"</span>, <span class="st">"bottom"</span>)) <span class="sc">+</span> <span class="fu">tm_credits</span>(<span class="st">"© OpenStreetMap contributors"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output-display">
-<p><img src="02-network_files/figure-html/ntx-proportional-symbol-map-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>The map shows that areas with greater access/exposure to fast-food outlets (denoted by the larger symbols) appear to be within the city centre and in the south, whereas those schools in the north have less exposure. However, with additional contextual information one would also be able to see that these two areas correlate quite well with the more commercial areas within Portsmouth, the high street and an area known as Gunwharf Quays. This suggests there are complexities in understanding accessibility as well as trying to apply specific policies such as banning new fast-food takeaways within a 400m range of school, particularly if these schools are in commercial areas.</p>
 </section>
 <section id="task-ntx" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="task-ntx"><span class="header-section-number">2.3.4</span> Tutorial task</h3>
 <p>Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth, your task is to estimate the accessibility of fast-food outlets at the LSOA scale and compare this to the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">2019 Index of Multiple Deprivation</a>.</p>
-<div class="note">
-<p><strong>Note</strong> <br> This skills and steps required for this analysis are not just based on this week’s practical, but you will have to combine all your knowledge of coding and spatial analysis you have gained over the past weeks.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This skills and steps required for this analysis are not just based on this week’s practical, but you will have to combine all your knowledge of coding and spatial analysis you have gained over the past weeks.</p>
+</div>
+</div>
 </div>
 <p>One way of doing this, is by taking some of the following steps:</p>
-<ol type="1">
+<ul>
 <li>Download and extract the 2011 LSOA boundaries of Portsmouth.</li>
 <li>Download the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">2019 Index of Multiple Deprivation</a> scores.</li>
 <li>Decide on an accessibility measure, such as:
@@ -622,7 +653,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <li>Create a choropleth map of aggregate accessibility to visualise the results.</li>
 <li>Join the 2019 Index of Multiple Deprivation data to your LSOA dataset.</li>
 <li>For each IMD decile, calculate the average for your chosen aggregate measure and produce a table.</li>
-</ol>
+</ul>
 <p>Using your approach what do you think: are fast-food restaurants, on average, more accessible for students at schools that are located within LSOAs with a lower IMD decile when compared to students at schools that are located within LSOAs with a higher IMD decile?</p>
 </section>
 </section>
@@ -634,8 +665,15 @@ Geodetic CRS:  WGS 84</code></pre>
 <li>Why do we have unconnected segments in the extracted transport network? How would you inspect these unconnected segments? Would they need to be connected? If so, how would one do this?</li>
 <li>Why you think all Origins and Destinations are mapped onto the closest network points? Is this always the best option? What alternative methods could you think of and how would you implement these?</li>
 </ol>
-<div class="tip">
-<p><strong>Tip</strong> <br> If you really want a deep into accessibility analysis, there is a great resource that got published recently: <a href="https://ipeagit.github.io/intro_access_book/">Introduction to urban accessibility: a practical guide in R</a>.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you want to take a deepdive into accessibility analysis, there is a great resource that got published recently: <a href="https://ipeagit.github.io/intro_access_book/">Introduction to urban accessibility: a practical guide in R</a>.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="byl-ntx" class="level2" data-number="2.5">
