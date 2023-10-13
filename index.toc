@@ -1,0 +1,27 @@
+\contentsline {chapter}{Module overview}{3}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Geodemographics}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Lecture slides}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Reading list}{5}{section.1.2}%
+\contentsline {subsubsection}{Essential readings}{5}{section*.3}%
+\contentsline {subsubsection}{Suggested readings}{6}{section*.4}%
+\contentsline {section}{\numberline {1.3}Geodemographics}{6}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Internet User Classification I}{6}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Tutorial task I}{13}{subsection.1.3.2}%
+\contentsline {subsubsection}{File download}{13}{section*.10}%
+\contentsline {subsection}{\numberline {1.3.3}k-means clustering}{14}{subsection.1.3.3}%
+\contentsline {subsubsection}{File download}{14}{section*.11}%
+\contentsline {subsection}{\numberline {1.3.4}Tutorial task II}{24}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}Before you leave}{25}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Transport Network Analysis}{29}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Lecture slides}{29}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Reading list}{29}{section.2.2}%
+\contentsline {subsubsection}{Essential readings}{29}{section*.16}%
+\contentsline {subsubsection}{Suggested readings}{29}{section*.17}%
+\contentsline {section}{\numberline {2.3}Transport Network Analysis}{30}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Accessibility in Portsmouth}{30}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Acquiring network data}{31}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Measuring accessibility}{35}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Tutorial task}{41}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Want more? {[}Optional{]}}{43}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Before you leave}{43}{section.2.5}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

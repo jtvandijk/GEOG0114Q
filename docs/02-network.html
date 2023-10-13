@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GEOG0114 Principles of Spatial Analysis - 2&nbsp; Transport Network Analysis</title>
+<title>network</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,16 +70,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
-  "type": "textbox",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -94,9 +96,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -108,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-network.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Transport Network Analysis</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-network.html">W08 Transport Network Analysis</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -122,36 +125,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">GEOG0114 Principles of Spatial Analysis</a> 
-        <div class="sidebar-tools-main">
-    <a href="./GEOG0114-Principles-of-Spatial-Analysis.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/jtvandijk/GEOG0114Q" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
 </div>
-    </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="./00-index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Module overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-geodemographics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Geodemographics</span></span></a>
+ <span class="menu-text">W07 Geodemographics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-network.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Transport Network Analysis</span></span></a>
+ <span class="menu-text">W08 Transport Network Analysis</span></a>
   </div>
 </li>
     </ul>
@@ -161,50 +161,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-w08" id="toc-lecture-w08" class="nav-link active" data-scroll-target="#lecture-w08"><span class="header-section-number">2.1</span> Lecture slides</a></li>
-  <li><a href="#reading-w08" id="toc-reading-w08" class="nav-link" data-scroll-target="#reading-w08"><span class="header-section-number">2.2</span> Reading list</a></li>
-  <li><a href="#transport-network-analysis" id="toc-transport-network-analysis" class="nav-link" data-scroll-target="#transport-network-analysis"><span class="header-section-number">2.3</span> Transport Network Analysis</a>
+  <li><a href="#w08-transport-network-analysis" id="toc-w08-transport-network-analysis" class="nav-link active" data-scroll-target="#w08-transport-network-analysis">W08 Transport Network Analysis</a>
   <ul class="collapse">
-  <li><a href="#accessibility-in-portsmouth" id="toc-accessibility-in-portsmouth" class="nav-link" data-scroll-target="#accessibility-in-portsmouth"><span class="header-section-number">2.3.1</span> Accessibility in Portsmouth</a></li>
-  <li><a href="#loading-data-ntx" id="toc-loading-data-ntx" class="nav-link" data-scroll-target="#loading-data-ntx"><span class="header-section-number">2.3.2</span> Acquiring network data</a></li>
-  <li><a href="#osm" id="toc-osm" class="nav-link" data-scroll-target="#osm"><span class="header-section-number">2.3.3</span> Measuring accessibility</a></li>
-  <li><a href="#task-ntx" id="toc-task-ntx" class="nav-link" data-scroll-target="#task-ntx"><span class="header-section-number">2.3.4</span> Tutorial task</a></li>
+  <li><a href="#lecture-w08" id="toc-lecture-w08" class="nav-link" data-scroll-target="#lecture-w08">Lecture slides</a></li>
+  <li><a href="#reading-w08" id="toc-reading-w08" class="nav-link" data-scroll-target="#reading-w08">Reading list</a></li>
+  <li><a href="#transport-network-analysis" id="toc-transport-network-analysis" class="nav-link" data-scroll-target="#transport-network-analysis">Transport Network Analysis</a>
+  <ul class="collapse">
+  <li><a href="#accessibility-in-portsmouth" id="toc-accessibility-in-portsmouth" class="nav-link" data-scroll-target="#accessibility-in-portsmouth">Accessibility in Portsmouth</a></li>
+  <li><a href="#loading-data-ntx" id="toc-loading-data-ntx" class="nav-link" data-scroll-target="#loading-data-ntx">Acquiring network data</a></li>
+  <li><a href="#osm" id="toc-osm" class="nav-link" data-scroll-target="#osm">Measuring accessibility</a></li>
+  <li><a href="#task-ntx" id="toc-task-ntx" class="nav-link" data-scroll-target="#task-ntx">Tutorial task</a></li>
   </ul></li>
-  <li><a href="#wm-w10" id="toc-wm-w10" class="nav-link" data-scroll-target="#wm-w10"><span class="header-section-number">2.4</span> Want more? [Optional]</a></li>
-  <li><a href="#byl-ntx" id="toc-byl-ntx" class="nav-link" data-scroll-target="#byl-ntx"><span class="header-section-number">2.5</span> Before you leave</a></li>
+  <li><a href="#wm-w10" id="toc-wm-w10" class="nav-link" data-scroll-target="#wm-w10">Want more? [Optional]</a></li>
+  <li><a href="#byl-ntx" id="toc-byl-ntx" class="nav-link" data-scroll-target="#byl-ntx">Before you leave</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jtvandijk/GEOG0114Q/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Transport Network Analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/jtvandijk/GEOG0114Q"><i class="bi"></i></button></div></div>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
+<section id="w08-transport-network-analysis" class="level1">
+<h1>W08 Transport Network Analysis</h1>
 <p>This week we will cover a different type of data: network data. We will take a look at how we can use network data to measure accessibility using the <code>dodgr</code> R library. We will calculate the network distances between combinations of locations (i.e.&nbsp;a set of origins and a set of destinations). These distances can then, for instance, be used to calculate the number of a resource (e.g.&nbsp;fast-food outlets) within a certain distance of a Point of Interest (e.g.&nbsp;a school or population-weighted centroid).</p>
-<section id="lecture-w08" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="lecture-w08"><span class="header-section-number">2.1</span> Lecture slides</h2>
+<section id="lecture-w08" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-w08">Lecture slides</h2>
 <p>You can download the slides of this week’s lecture here: <a href="https://github.com/jtvandijk/GEOG0114Q/tree/master/slides/w08-psa.pdf">[Link]</a>.</p>
 </section>
-<section id="reading-w08" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="reading-w08"><span class="header-section-number">2.2</span> Reading list</h2>
+<section id="reading-w08" class="level2">
+<h2 class="anchored" data-anchor-id="reading-w08">Reading list</h2>
 <section id="essential-readings" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="essential-readings">Essential readings</h4>
 <ul>
@@ -222,21 +212,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="transport-network-analysis" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="transport-network-analysis"><span class="header-section-number">2.3</span> Transport Network Analysis</h2>
+<section id="transport-network-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="transport-network-analysis">Transport Network Analysis</h2>
 <p>The term network analysis covers a wide range of analysis techniques ranging from complex network analysis to social network analysis, and from link analysis to transport network analysis. What the techniques have in common is that they are based on the concept of a <strong>network</strong>. A network or network graph is constituted by a collection of vertices that are connected to one another by edges. Note, vertices may also be called nodes or points, whilst edges may be called links or lines. Within social network analysis, you may find the terms actors (the vertices) and ties or relations (the edges) also used.</p>
-<div class="cell">
+<div class="cell" data-hash="02-network_cache/html/fig-ntx-network-graph-example_2e4bd0f3a90c28c8bfe00ad506a85c98">
 <div class="cell-output-display">
 <div id="fig-ntx-network-graph-example" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/w08/network-graph.png" class="img-fluid figure-img" width="640"></p>
-<figcaption class="figure-caption">Figure&nbsp;2.1: Visualising networks with vertices and edges.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;1: Visualising networks with vertices and edges.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="accessibility-in-portsmouth" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="accessibility-in-portsmouth"><span class="header-section-number">2.3.1</span> Accessibility in Portsmouth</h3>
+<section id="accessibility-in-portsmouth" class="level3">
+<h3 class="anchored" data-anchor-id="accessibility-in-portsmouth">Accessibility in Portsmouth</h3>
 <p>For this week’s practical, we will be using Portsmouth in the UK as our area of interest for our analysis. One prominent topic within the city is the issue of public health and childhood obesity. According to figures released in March 2020 by Public Health England, more than one in three school pupils are overweight or obese by the time they finish primary school within the city; this is much higher than the national average of one in four. One potential contributor to the health crisis is the ease and availability of fast-food outlets in the city. In the following, we will measure the accessibility of fast-food outlets within specific walking distances of all school in Portsmouth starting at 400m, then 800m and finally a 1km walking distance. We will then aggregate these results to Lower Super Output Areas (LSOA) and overlay these results with some socio-economic variables.</p>
 <p>To execute this analysis, we will need to first calculate the distances between our schools and fast-food outlets. This involves calculating the shortest distance a child would walk between a school and a fast-food outlet, using roads or streets. We will use the <code>dodgr</code> R package to conduct this transport network analysis.</p>
 <div class="callout callout-style-simple callout-note">
@@ -250,8 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="loading-data-ntx" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="loading-data-ntx"><span class="header-section-number">2.3.2</span> Acquiring network data</h3>
+<section id="loading-data-ntx" class="level3">
+<h3 class="anchored" data-anchor-id="loading-data-ntx">Acquiring network data</h3>
 <p>The first dataset we need to download will help with the visualisation of our results: boundary data that contains an outline of Portsmouth.</p>
 <table class="table">
 <thead>
@@ -379,7 +369,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div id="fig-ntx-network-plot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02-network_files/figure-html/fig-ntx-network-plot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2.2: OSM road network</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2: OSM road network</figcaption>
 </figure>
 </div>
 </div>
@@ -396,8 +386,8 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>Now we have the network edges, we can turn this into a graph-representation that allows for the calculation of network-based accessibility statistics.</p>
 </section>
-<section id="osm" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="osm"><span class="header-section-number">2.3.3</span> Measuring accessibility</h3>
+<section id="osm" class="level3">
+<h3 class="anchored" data-anchor-id="osm">Measuring accessibility</h3>
 <p>Before we can construct our full network graph for the purpose of accessibility analysis, we need to also provide our <strong>Origin</strong> and <strong>Destination</strong> points, i.e.&nbsp;the data points we wish to calculate the distances between. According to the <code>dodgr</code> documentation, these points need to be in either a vector or matrix format, containing the two coordinates for each point for the origins and for the destinations.</p>
 <p>As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets - again we will turn to OpenStreetMap. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap <code>keys</code> and <code>values</code> to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:</p>
 <div class="cell">
@@ -473,7 +463,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(graph_connected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 56364</code></pre>
+<pre><code>[1] 56636</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dodgr_to_sf</span>(graph_connected), <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -481,7 +471,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div id="fig-ntx-extract-largest-graph" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02-network_files/figure-html/fig-ntx-extract-largest-graph-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2.3: Largest graph component</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;3: Largest graph component</figcaption>
 </figure>
 </div>
 </div>
@@ -517,88 +507,88 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sch_to_ff_calc, <span class="at">n =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         1        2        3       4        5        6        7        8
-1 4000.016 2090.485 6549.779 9356.08 10903.62 2231.919 11845.44 2292.263
+<pre><code>         1        2        3       4        5        6       7        8
+1 4000.016 2090.485 6549.779 9356.08 10903.44 2231.919 11868.8 2292.263
          9       10       11       12       13       14       15       16
 1 1676.805 1680.043 1697.416 1676.805 2090.485 2090.485 2060.898 4000.016
         17       18       19      20       21       22       23       24
 1 2324.454 4000.016 4000.016 3338.83 1700.179 581.0582 7277.651 3610.322
         25       26       27       28       29       30       31       32
-1 1359.146 3321.374 340.8823 1102.226 10796.81 2963.157 2720.491 3508.267
+1 1359.146 3321.374 340.8823 1102.226 10796.63 2963.157 2720.491 3508.267
         33       34       35       36       37       38       39       40
 1 2330.386 2818.121 2920.565 2920.565 736.0556 3399.756 844.6083 6231.901
-        41       42       43       44       45       46       47       48
-1 3394.397 9171.192 9372.628 9238.263 9481.949 1629.029 3525.506 2400.918
+        41       42      43       44       45       46       47       48
+1 3394.397 9171.014 9372.45 9238.085 9481.772 1629.029 3525.506 2400.918
         49       50       51       52       53       54       55       56
-1 7173.413 8978.739 9403.034 9329.926 6483.465 6483.465 6470.802 6470.802
+1 7173.413 8976.891 9402.856 9329.748 6483.465 6483.465 6470.802 6470.802
         57       58       59       60       61       62       63       64
 1 804.5849 763.0434 2526.807 1067.907 1010.408 1010.408 1967.697 1418.767
         65       66      67       68       69       70       71       72
-1 2818.121 1245.823 2157.02 688.8672 2162.922 2205.285 2119.323 11755.26
+1 2818.121 1245.823 2157.02 688.8672 2162.922 2205.285 2119.323 11778.62
         73       74       75       76       77       78       79       80
 1 4829.051 2738.124 844.6083 615.1102 788.7212 2586.476 2667.125 728.4882
-        81       82       83       84       85       86       87       88
-1 11845.44 11845.44 11845.44 11934.59 11934.59 11934.59 11845.44 11845.44
-        89       90       91       92       93       94       95       96
-1 11845.44 11845.44 11845.44 11845.44 11845.44 11339.91 6545.668 6589.917
-        97       98       99      100      101      102      103      104
-1 6589.917 6442.566 4000.016 4000.016 4234.432 5929.469 3841.384 581.0582
-       105      106      107      108      109      110      111      112
-1 597.3575 2654.314 5119.621 5317.048 5058.497 375.2084 926.0127 5058.497
-       113     114      115     116      117      118     119      120      121
-1 4045.705 753.752 556.5173 713.536 622.6949 597.3575 1225.66 3339.134 3295.758
-       122      123      124      125     126      127      128     129
-1 5469.038 6670.481 6634.905 6634.905 6626.71 6634.905 6634.905 6626.71
-       130      131     132      133      134      135      136      137
-1 6670.481 6670.481 6626.71 6670.481 6670.481 6670.481 6670.481 6670.481
-       138      139      140      141      142      143      144      145
-1 12348.71 9528.601 9528.601 5522.227 9339.459 9339.459 9291.034 8563.944
-       146      147      148      149     150      151     152      153
-1 9291.034 9339.459 12026.51 12026.51 12033.8 12026.11 9548.47 3586.662
-       154      155      156      157      158      159      160      161
-1 2300.121 815.5434 3467.049 5708.154 905.8238 905.8238 905.8238 4950.036
-       162      163      164      165      166      167      168    169
-1 4968.988 858.9023 3216.085 3397.074 11419.74 4879.532 1813.109 9160.3
-       170     171      172      173      174      175      176      177
-1 1666.407 9599.24 9659.195 4687.627 3177.171 3467.049 3118.594 5973.195
-       178      179      180      181      182      183      184      185
-1 9633.051 9659.195 5299.098 3966.434 9219.851 6041.409 5972.696 8905.439
-       186      187      188      189      190      191      192      193
-1 6656.006 5895.308 10772.24 1505.914 4995.748 11489.11 1574.826 5478.182
-       194      195      196      197      198      199      200      201
-1 1804.091 3107.774 9102.648 4738.493 4968.988 4041.569 13159.31 5478.182
-       202      203      204      205      206      207      208      209
-1 3295.758 3295.758 556.5173 788.7212 10113.11 5101.577 9633.051 9633.051
-       210      211      212      213      214      215      216      217
-1 9633.051 9520.773 9520.773 9520.773 9520.773 9633.051 9633.051 6001.071
-      218      219      220      221      222      223      224      225
-1 5606.02 4718.064 4041.569 4887.462 4885.475 1543.604 1510.665 1559.537
-       226      227      228      229      230      231      232      233
-1 5317.388 11646.67 4944.579 4949.291 4188.983 3525.506 6046.467 5452.211
-       234      235      236      237      238      239      240      241
-1 5317.048 5317.048 5317.048 5317.048 5317.048 5317.048 5317.048 4963.868
-       242      243      244      245      246      247     248      249
-1 6272.114 5376.342 4738.493 5818.335 6634.905 4925.352 11559.4 11584.02
-       250      251      252      253      254      255      256      257
-1 5058.497 5058.497 5058.497 5058.497 5101.577 5131.313 5101.577 5131.313
-       258      259      260      261      262      263      264      265
-1 5131.313 5125.567 11845.44 6549.779 6549.779 6529.533 6549.779 6549.779
-       266      267      268      269      270      271      272      273
-1 6529.533 4808.089 4968.988 11845.44 4774.109 4361.855 1129.672 1302.289
-       274      275      276     277      278      279      280      281
-1 1302.289 1320.727 3344.664 4341.78 1332.226 1122.057 5297.203 11934.59
-       282     283      284      285      286      287      288      289
-1 12026.51 3002.79 6483.465 5784.828 3383.088 3166.965 11584.02 2920.565
-      290      291      292      293     294      295      296      297
-1 1677.06 2312.611 5837.072 5735.345 5737.21 5837.072 5837.072 4958.337
-       298     299      300      301     302      303      304      305
-1 1128.534 9233.39 2059.118 7701.615 1114.85 1092.164 1092.164 1122.057
-       306     307      308      309      310      311      312      313
-1 1092.164 4661.76 2205.285 3361.814 2738.453 3026.324 3508.075 3522.959
-       314      315      316      317      318      319      320      321
-1 3522.959 3610.322 3610.322 3639.371 3377.222 3522.959 2724.716 597.3575
-       322     323      324      325     326
-1 3532.616 7376.95 7338.052 7338.052 7376.95</code></pre>
+       81      82      83       84       85       86      87      88      89
+1 11868.8 11868.8 11868.8 11957.96 11957.96 11957.96 11868.8 11868.8 11868.8
+       90      91      92      93       94       95       96       97       98
+1 11868.8 11868.8 11868.8 11868.8 11339.73 6545.668 6589.917 6589.917 6442.566
+        99      100      101      102      103      104      105      106
+1 4000.016 4000.016 4234.432 5929.469 3841.384 581.0582 597.3575 2654.314
+       107      108      109      110      111      112      113     114
+1 5119.621 5317.048 5058.497 375.2084 926.0127 5058.497 4045.705 753.752
+       115     116      117      118     119      120      121      122
+1 556.5173 713.536 622.6949 597.3575 1225.66 3339.134 3295.758 5469.038
+       123      124      125     126      127      128     129      130
+1 6670.481 6634.905 6634.905 6626.71 6634.905 6634.905 6626.71 6670.481
+       131     132      133      134      135      136      137      138
+1 6670.481 6626.71 6670.481 6670.481 6670.481 6670.481 6670.481 12348.53
+       139      140      141      142      143      144      145      146
+1 9528.423 9528.423 5522.227 9339.459 9339.459 9291.034 8563.944 9291.034
+       147      148      149      150      151      152      153      154
+1 9339.459 12049.88 12049.88 12057.17 12049.47 9548.293 3586.662 2300.121
+       155      156      157      158      159      160      161      162
+1 815.5434 3467.049 5708.154 905.8238 905.8238 905.8238 4950.036 4968.988
+       163      164      165      166      167      168      169      170
+1 858.9023 3216.085 3397.074 11636.82 4879.532 1813.109 9160.122 1666.407
+       171      172      173      174      175      176      177      178
+1 9599.062 9659.017 4687.627 3177.171 3467.049 3118.594 5973.195 9538.917
+       179      180      181      182      183      184      185      186
+1 9659.017 5299.098 3966.434 9219.673 6041.409 5972.696 8905.439 6656.006
+       187      188      189      190      191      192      193      194
+1 5895.308 10772.06 1505.914 4995.748 11512.47 1574.826 5478.182 1804.091
+       195     196      197      198      199      200      201      202
+1 3107.774 9102.47 4738.493 4968.988 4041.569 13182.67 5478.182 3295.758
+       203      204      205      206      207      208      209      210
+1 3295.758 556.5173 788.7212 10112.93 5101.577 9538.917 9538.917 9538.917
+       211      212      213      214      215      216      217     218
+1 9520.595 9520.595 9520.595 9520.595 9538.917 9538.917 6001.071 5606.02
+       219      220      221      222      223      224      225      226
+1 4718.064 4041.569 4887.462 4885.475 1543.604 1510.665 1559.537 5317.388
+       227      228      229      230      231      232      233      234
+1 11670.04 4944.579 4949.291 4188.983 3525.506 6046.467 5452.211 5317.048
+       235      236      237      238      239      240      241      242
+1 5317.048 5317.048 5317.048 5317.048 5317.048 5317.048 4963.868 6272.114
+       243      244      245      246      247      248      249      250
+1 5376.342 4738.493 5818.335 6634.905 4925.352 11582.77 11607.39 5058.497
+       251      252      253      254      255      256      257      258
+1 5058.497 5058.497 5058.497 5101.577 5131.313 5101.577 5131.313 5131.313
+       259     260      261      262      263      264      265      266
+1 5125.567 11868.8 6549.779 6549.779 6529.533 6549.779 6549.779 6529.533
+       267      268     269      270      271      272      273      274
+1 4808.089 4968.988 11868.8 4774.109 4361.855 1129.672 1302.289 1302.289
+       275      276     277      278      279      280      281      282
+1 1320.727 3344.664 4341.78 1332.226 1122.057 5297.203 11957.96 12049.88
+      283      284      285      286      287      288      289     290
+1 3002.79 6483.465 5784.828 3383.088 3166.965 11607.39 2920.565 1677.06
+       291      292      293     294      295      296      297      298
+1 2312.611 5837.072 5735.345 5737.21 5837.072 5837.072 4958.337 1128.534
+       299      300      301     302      303      304      305      306
+1 9233.213 2059.118 7701.615 1114.85 1092.164 1092.164 1122.057 1092.164
+      307      308      309      310      311      312      313      314
+1 4661.76 2205.285 3361.814 2738.453 3026.324 3508.075 3522.959 3522.959
+       315      316      317      318      319      320      321      322
+1 3610.322 3610.322 3639.371 3377.222 3522.959 2724.716 597.3575 3532.616
+      323      324      325     326
+1 7376.95 7338.052 7338.052 7376.95</code></pre>
 </div>
 </div>
 <p>Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently should not have any <code>NA</code> values.</p>
@@ -629,8 +619,8 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </section>
-<section id="task-ntx" class="level3" data-number="2.3.4">
-<h3 data-number="2.3.4" class="anchored" data-anchor-id="task-ntx"><span class="header-section-number">2.3.4</span> Tutorial task</h3>
+<section id="task-ntx" class="level3">
+<h3 class="anchored" data-anchor-id="task-ntx">Tutorial task</h3>
 <p>Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth, your task is to estimate the accessibility of fast-food outlets at the LSOA scale and compare this to the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">2019 Index of Multiple Deprivation</a>.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -660,8 +650,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>Using your approach what do you think: are fast-food restaurants, on average, more accessible for students at schools that are located within LSOAs with a lower IMD decile when compared to students at schools that are located within LSOAs with a higher IMD decile?</p>
 </section>
 </section>
-<section id="wm-w10" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="wm-w10"><span class="header-section-number">2.4</span> Want more? [Optional]</h2>
+<section id="wm-w10" class="level2">
+<h2 class="anchored" data-anchor-id="wm-w10">Want more? [Optional]</h2>
 <p>We have now conducted some basic accessibility analysis, however, there is some additional fundamental challenges to consider in the context of transport network and accessibility analysis:</p>
 <ol type="1">
 <li>How do the different weight profiles of the <code>dodgr</code> package work? How would one go about creating your own weight profile? How would using a different weight profiles affect the results of your analysis?</li>
@@ -679,8 +669,8 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </section>
-<section id="byl-ntx" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="byl-ntx"><span class="header-section-number">2.5</span> Before you leave</h2>
+<section id="byl-ntx" class="level2">
+<h2 class="anchored" data-anchor-id="byl-ntx">Before you leave</h2>
 <p>Having finished this tutorial on transport network analysis and, hopefully, having been able to independently conduct some further area-profiling using IMD deciles, <a href="https://www.youtube.com/watch?v=fFw7q-BLxLA">you have now reached the end of this week’s content</a>. However, there is some additional fundamental challenges to consider in the context of transport network and accessibility analysis:</p>
 <ol type="1">
 <li>How do the different weight profiles of the <code>dodgr</code> package work? How would one go about creating your own weight profile? How would using a different weight profiles affect the results of your analysis?</li>
@@ -689,6 +679,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -712,6 +703,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -771,57 +877,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -979,14 +1034,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./01-geodemographics.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Geodemographics</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W07 Geodemographics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Course material by <a href="https://www.mappingdutchman.com">Justin van Dijk</a>. Available under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -1,4 +1,4 @@
-# Transport Network Analysis
+# W08 Transport Network Analysis
 This week we will cover a different type of data: network data. We will take a look at how we can use network data to measure accessibility using the `dodgr` R library. We will calculate the network distances between combinations of locations (i.e. a set of origins and a set of destinations). These distances can then, for instance, be used to calculate the number of a resource (e.g. fast-food outlets) within a certain distance of a Point of Interest (e.g. a school or population-weighted centroid). 
 
 ## Lecture slides {#lecture-w08}

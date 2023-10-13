@@ -1,0 +1,16 @@
+div.sidebar-header {
+    text-align: center;
+}
+
+.sidebar-navigation li a {
+    cursor: pointer;
+}
+
+.explore {
+    margin-bottom: 1em;
+}
+
+.variogram>div.cell-output>div.quarto-figure>figure>p>img {
+    max-width: 100%;
+    height: auto;
+}
