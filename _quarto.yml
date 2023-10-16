@@ -37,9 +37,14 @@ website:
       - icon: github
         href: https://github.com/jtvandijk/GEOG0114Q
     contents:
-      - 00-index.qmd
-      - 01-geodemographics.qmd
-      - 02-network.qmd
+      - section: "Module overview"
+        contents:
+          text: "Welcome"
+          file: 00-index.qmd
+      - section: "Applied Spatial Analysis"
+        contents:
+          - 01-geodemographics.qmd
+          - 02-network.qmd
 
 # misc
 editor: source

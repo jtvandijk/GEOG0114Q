@@ -1,4 +1,4 @@
-# Module overview {.unnumbered}
+# Principles of Spatial Analysis 2023-2024 {.unnumbered}
 
 ```{r}
 #| label: module-overview-figure
