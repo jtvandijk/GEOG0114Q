@@ -1,5 +1,8 @@
 # global variables
 
+meta:
+  title: GEOG0114
+
 urls:
   git-url-am: "https://uclpg-msc-sgds.github.io/GEOG0114"
   geodemographics: "01-geodemographics.html"

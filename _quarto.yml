@@ -18,9 +18,9 @@ format:
     toc: true
     smooth-scroll: true
     highlight-style: atom-one
+    pagetitle: "{{< var meta.title >}}"
 
 website:
-  title: GEOG0114
   repo-url: https://github.com/jtvandijk/GEOG0114Q
   repo-actions: [issue]
   page-navigation: true
@@ -46,6 +46,5 @@ website:
           - 01-geodemographics.qmd
           - 02-network.qmd
 
-# misc
 editor: source
 
