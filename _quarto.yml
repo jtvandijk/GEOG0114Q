@@ -20,8 +20,8 @@ format:
     highlight-style: atom-one
 
 website:
+  title: GEOG0114
   repo-url: https://github.com/jtvandijk/GEOG0114Q
-  # favicon: assets/favicon.png
   repo-actions: [issue]
   page-navigation: true
   page-footer:
