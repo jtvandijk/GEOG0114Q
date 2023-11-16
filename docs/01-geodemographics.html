@@ -705,7 +705,7 @@ First 10 features:
 [1] 110934.1
 
 [[3]]
-[1] 96052.66
+[1] 94944.45
 
 [[4]]
 [1] 82701.63
@@ -802,21 +802,21 @@ First 10 features:
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>clusters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 7 clusters of sizes 956, 2394, 582, 1717, 759, 187, 1885
+<pre><code>K-means clustering with 7 clusters of sizes 1814, 541, 1107, 2053, 2039, 740, 186
 
 Cluster means:
-   age0to4pc  age5to14pc age16to24pc age25to44pc age45to64pc  age75pluspc
+     age0to4pc  age5to14pc age16to24pc age25to44pc age45to64pc age75pluspc
   1_higher_managerial 2_lower_managerial 3_intermediate_occupations
   4_employers_small_org 5_lower_supervisory 6_semi_routine  7_routine
   8_unemployed avg_dwn_speed avb_superfast no_decent_bband
  [ reached getOption("max.print") -- omitted 7 rows ]
 
 Clustering vector:
-[1] 5 1 2 2 1
+[1] 6 3 5 5 3
  [ reached getOption("max.print") -- omitted 8475 entries ]
 
 Within cluster sum of squares by cluster:
-[1]  8164.766 14200.865  6828.975 11927.670  7998.965
+[1] 12871.008  6265.986  9429.647 11736.830 11471.872
  [ reached getOption("max.print") -- omitted 2 entries ]
  (between_SS / total_SS =  56.3 %)
 
@@ -842,7 +842,7 @@ Available components:
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>kfit_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  956 2394  582 1717  759
+<pre><code>[1] 1814  541 1107 2053 2039
  [ reached getOption("max.print") -- omitted 2 entries ]</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean values for each variable in each cluster</span></span>
@@ -853,15 +853,15 @@ Available components:
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>kfit_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 18
-  cluster age0to4pc age5to14pc age16t…¹ age25…² age45…³ age75p…⁴ 1_hig…⁵ 2_low…⁶
-    &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1       1     1.68      1.22     0.401   0.718  -1.25   -1.03    -0.855   -1.20 
-2       2    -0.159    -0.0304  -0.201  -0.138   0.290   0.134   -0.164    0.105
-3       3    -0.891    -0.171   -0.520  -1.00    1.21    0.594    0.0206   0.224
-4       4    -0.596     0.0467  -0.460  -0.713   0.740   0.753    0.970    0.985
-5       5     0.351    -0.886    0.201   2.04   -1.22   -0.948    1.45     1.24 
-6       6    -1.52     -2.68     5.40    0.125  -2.62   -1.28     0.888    0.232
-7       7     0.179     0.0507   0.0150 -0.0638 -0.0313 -0.00611 -0.918   -1.01 
+  cluster age0to4pc age5to14pc age16to…¹ age25…² age45…³ age75…⁴ 1_hig…⁵ 2_low…⁶
+    &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1       1  -0.679      -0.0412   -0.465  -0.773   0.765    0.856  0.845    0.893
+2       2  -0.880      -0.148    -0.523  -0.998   1.22     0.554  0.0251   0.225
+3       3   1.56        1.14      0.381   0.626  -1.13    -0.954 -0.906   -1.26 
+4       4  -0.00815    -0.0824   -0.0526 -0.158   0.0919   0.164 -0.837   -0.849
+5       5   0.0162      0.118    -0.172   0.0189  0.202   -0.103 -0.0481   0.211
+6       6   0.326      -0.923     0.209   2.05   -1.23    -0.927  1.50     1.26 
+7       7  -1.52       -2.68      5.42    0.113  -2.62    -1.28   0.870    0.223
 # … with 9 more variables: `3_intermediate_occupations` &lt;dbl&gt;,
 #   `4_employers_small_org` &lt;dbl&gt;, `5_lower_supervisory` &lt;dbl&gt;,
 #   `6_semi_routine` &lt;dbl&gt;, `7_routine` &lt;dbl&gt;, `8_unemployed` &lt;dbl&gt;,
