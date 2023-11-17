@@ -312,15 +312,15 @@ wss_values <- as.data.frame(t(wss_values))
 
 # add cluster numbers
 wss_values$cluster <- seq.int(nrow(wss_values))
-names(wss_values) <- c('wss','cluster')
+names(wss_values) <- c("wss","cluster")
 
 # plot using ggplot2
 ggplot(data=wss_values, aes(x=cluster,y=wss)) +
   geom_point() +
   geom_path() + 
   scale_x_continuous(breaks=seq(1,15)) +
-  xlab('Number of clusters') +
-  ylab('Within sum of squares') +
+  xlab("Number of clusters") +
+  ylab("Within sum of squares") +
   theme_minimal()
 ```
 
@@ -408,10 +408,10 @@ kfit_mean_long <- pivot_longer(kfit_mean, cols=(-cluster))
 
 # plot using ggplot2  
 ggplot(kfit_mean_long, aes(x=cluster, y=value, fill=name)) + 
-  geom_bar(stat='identity', position="dodge") +
+  geom_bar(stat="identity", position="dodge") +
   scale_x_continuous(breaks=seq(1,7,by=1)) +
-  xlab('Cluster') +
-  ylab('Mean value') +
+  xlab("Cluster") +
+  ylab("Mean value") +
   theme_minimal() +
   theme(legend.title = element_blank(),
        legend.position = "bottom")
@@ -434,9 +434,9 @@ Looking at the table with the mean values for each cluster and the barplot, we c
 
 # plot using ggplot2  
 ggplot(kfit_mean_long[kfit_mean_long$cluster==1,], aes(x=cluster, y=value, fill=name)) + 
-  geom_bar(stat='identity', position="dodge") +
-  xlab('Cluster') +
-  ylab('Mean value') +
+  geom_bar(stat="identity", position="dodge") +
+  xlab("Cluster") +
+  ylab("Mean value") +
   theme_minimal() +
   theme(legend.title = element_blank(),
        legend.position = "bottom")
@@ -464,11 +464,11 @@ msoa <- st_simplify(msoa, dTolerance = 100)
 
 # join
 cluster_data <- cbind(iuc_input,kfit$cluster)
-msoa <- left_join(msoa,cluster_data,by=c('geo_code'='msoa11cd'))
+msoa <- left_join(msoa,cluster_data,by=c("geo_code"="msoa11cd"))
 
 # plot
 tm_shape(msoa) +
-  tm_fill(col='kfit$cluster') +
+  tm_fill(col="kfit$cluster") +
   tm_layout(legend.outside=TRUE)
 ```
 
