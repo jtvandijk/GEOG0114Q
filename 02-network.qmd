@@ -54,7 +54,6 @@ We can now load the required libraries as well as the major towns and cities bou
 # libraries
 library(tidyverse)
 library(sf)
-library(tmap)
 library(osmdata)
 library(dodgr)
 

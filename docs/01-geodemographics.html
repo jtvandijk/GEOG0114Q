@@ -706,13 +706,13 @@ First 10 features:
 [1] 110934.1
 
 [[3]]
-[1] 96052.66
+[1] 100044.1
 
 [[4]]
 [1] 82701.63
 
 [[5]]
-[1] 73974.93
+[1] 76194.75
 
  [ reached getOption("max.print") -- omitted 10 entries ]</code></pre>
 </div>
@@ -807,7 +807,7 @@ First 10 features:
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>clusters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 7 clusters of sizes 186, 2053, 541, 1107, 2039, 740, 1814
+<pre><code>K-means clustering with 7 clusters of sizes 186, 740, 542, 2052, 2045, 1809, 1106
 
 Cluster means:
      age0to4pc  age5to14pc age16to24pc age25to44pc age45to64pc age75pluspc
@@ -817,11 +817,11 @@ Cluster means:
  [ reached getOption("max.print") -- omitted 7 rows ]
 
 Clustering vector:
-[1] 6 4 5 5 4
+[1] 2 7 5 5 7
  [ reached getOption("max.print") -- omitted 8475 entries ]
 
 Within cluster sum of squares by cluster:
-[1]  3401.821 11736.830  6265.986  9429.647 11471.872
+[1]  3401.821  7786.692  6277.839 11714.181 11518.745
  [ reached getOption("max.print") -- omitted 2 entries ]
  (between_SS / total_SS =  56.3 %)
 
@@ -847,7 +847,7 @@ Available components:
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>kfit_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  186 2053  541 1107 2039
+<pre><code>[1]  186  740  542 2052 2045
  [ reached getOption("max.print") -- omitted 2 entries ]</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean values for each variable in each cluster</span></span>
@@ -861,12 +861,12 @@ Available components:
   cluster age0to4pc age5to14pc age16to…¹ age25…² age45…³ age75…⁴ 1_hig…⁵ 2_low…⁶
     &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
 1       1  -1.52       -2.68      5.42    0.113  -2.62    -1.28   0.870    0.223
-2       2  -0.00815    -0.0824   -0.0526 -0.158   0.0919   0.164 -0.837   -0.849
-3       3  -0.880      -0.148    -0.523  -0.998   1.22     0.554  0.0251   0.225
-4       4   1.56        1.14      0.381   0.626  -1.13    -0.954 -0.906   -1.26 
-5       5   0.0162      0.118    -0.172   0.0189  0.202   -0.103 -0.0481   0.211
-6       6   0.326      -0.923     0.209   2.05   -1.23    -0.927  1.50     1.26 
-7       7  -0.679      -0.0412   -0.465  -0.773   0.765    0.856  0.845    0.893
+2       2   0.326      -0.923     0.209   2.05   -1.23    -0.927  1.50     1.26 
+3       3  -0.879      -0.149    -0.523  -0.997   1.22     0.553  0.0242   0.225
+4       4  -0.00693    -0.0808   -0.0522 -0.158   0.0903   0.163 -0.838   -0.850
+5       5   0.0140      0.116    -0.172   0.0178  0.203   -0.100 -0.0479   0.211
+6       6  -0.679      -0.0404   -0.465  -0.774   0.766    0.856  0.848    0.894
+7       7   1.57        1.14      0.382   0.626  -1.13    -0.955 -0.906   -1.26 
 # … with 9 more variables: `3_intermediate_occupations` &lt;dbl&gt;,
 #   `4_employers_small_org` &lt;dbl&gt;, `5_lower_supervisory` &lt;dbl&gt;,
 #   `6_semi_routine` &lt;dbl&gt;, `7_routine` &lt;dbl&gt;, `8_unemployed` &lt;dbl&gt;,
