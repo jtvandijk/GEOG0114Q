@@ -59,7 +59,7 @@ library(osmdata)
 library(dodgr)
 
 # load major towns and cities, filter Portsmouth
-portsmouth_city <- st_read("data/outline/Major_Towns_and_Cities__December_2015__Boundaries.shp", stringsAsFactors = FALSE) %>% filter(tcity15nm == "Portsmouth")
+portsmouth_city <- st_read("data/outline/Major_Towns_and_Cities__December_2015__Boundaries.shp", stringsAsFactors = FALSE) |> filter(tcity15nm == "Portsmouth")
 ```
 
 To create our network and Origin-Destination dataset, we will need data on schools, fast-food outlets, and a streetnetwork. Today we will be using [OpenStreetMap](https://www.openstreetmap.org) for this. If you have never come across OpenStreetMap (OSM) before, it is a free editable map of the world. 
@@ -89,8 +89,8 @@ p_bbox <- c(-1.113197,50.775781,-1.026508,50.859941)
 
 # pass bounding box coordinates into the OverPassQuery (opq) function
 # only download features that are not classified as motorway
-osmdata <- opq(bbox = p_bbox ) %>%
-  add_osm_feature(key = "highway", value = c("primary", "secondary", "tertiary", "residential", "path", "footway", "unclassified", "living_street", "pedestrian")) %>% 
+osmdata <- opq(bbox = p_bbox ) |>
+  add_osm_feature(key = "highway", value = c("primary", "secondary", "tertiary", "residential", "path", "footway", "unclassified", "living_street", "pedestrian")) |> 
   osmdata_sf()
 ```
 
@@ -178,13 +178,13 @@ As for our Portsmouth scenario we are interested in calculating the shortest dis
 #| filename: "R code"
 
 # download schools from OSM
-schools <- opq(bbox = p_bbox) %>%
-  add_osm_feature(key = 'amenity', value = 'school') %>% 
+schools <- opq(bbox = p_bbox) |>
+  add_osm_feature(key = 'amenity', value = 'school') |> 
   osmdata_sf()
 
 # download fast-food outlets 
-ff_outlets <- opq(bbox = p_bbox) %>%
-  add_osm_feature(key = 'amenity', value = 'fast_food') %>%
+ff_outlets <- opq(bbox = p_bbox) |>
+  add_osm_feature(key = 'amenity', value = 'fast_food') |>
   osmdata_sf()
 ```
 
