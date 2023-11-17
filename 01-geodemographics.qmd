@@ -296,13 +296,12 @@ for (i in 1:15) {
 wss_values
 ```
 
-```{r}
+```{r tidy='tidyr'}
 #| label: fig-geo-variables-that-cluster
 #| fig-cap: "Within sum of squares by number of clusters"
 #| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
-#| tidy: TRUE
 #| filename: "R code"
 
 # vector to dataframe
@@ -396,13 +395,12 @@ names(kfit_mean)[1] <- 'cluster'
 kfit_mean
 ```
 
-```{r}
+```{r tidy='tidyr'}
 #| label: fig-geo-plot-those-clusters-with-a-graph
 #| fig-cap: "Mean variable values by cluster"
 #| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
-#| tidy: TRUE
 #| filename: "R code"
 
 # transform shape to tidy format
@@ -426,13 +424,12 @@ Your values may be slightly different due to the random choice of initial cluste
 Looking at the table with the mean values for each cluster and the barplot, we can see that variables contribute differently to the different clusters. The graph is a little busy, so you might want to look at the cluster groups or variables individually to get a better picture of each cluster.
 
 
-```{r}
+```{r tidy='tidyr'}
 #| label: fig-geo-plot-those-clusters-with-a-graph-just-one
 #| fig-cap: "Mean variable values for cluster 1"
 #| warning: FALSE
 #| message: FALSE
 #| cache: FALSE
-#| tidy: TRUE
 #| filename: "R code"
 
 # plot using ggplot2  
