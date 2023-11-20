@@ -1,25 +1,22 @@
 # Geodemographics
-
 This week we will see how we can use socio-demographic and socio-economic data to characterise neighbourhoods using **geodemographics**. Geodemographics is the "*analysis of people by where they live (Harris et al. 2005) and as such entails representing the individual and collective identities that are manifest in observable neighbourhood structure*" ([Longley 2012]( https://doi.org/10.1080/13658816.2012.719623)). We will look at geodemographics by focusing on an existing geodemographic classification known as the [Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification).
 
 ## Lecture slides {#lecture-w07}
-
 You can download the slides of this week's lecture here: [\[Link\]]({{< var slides.week07 >}}).
 
 ## Reading list {#reading-w07}
-#### Essential readings {.unnumbered}
+#### Essential readings 
 - Longley, P. A. 2012. Geodemographics and the practices of geographic information science. *International Journal of Geographical Information Science* 26(12): 2227-2237. [\[Link\]](https://doi.org/10.1080/13658816.2012.719623)
 - Martin, D., Gale, C., Cockings, S. *et al.* 2018. Origin-destination geodemographics for analysis of travel to work flows. *Computers, Environment and Urban Systems* 67: 68-79. [\[Link\]](https://doi.org/10.1016/j.compenvurbsys.2017.09.002)
 - Singleton, A., Alexiou, A. and Savani, R. 2020. Mapping the geodemographics of digital inequality in Great Britain: An integration of machine learning into small area estimation. *Computers, Environment and Urban Systems* 82: 101486. [\[Link\]](https://doi.org/10.1016/j.compenvurbsys.2020.101486)
 - Wyszomierski, J., Longley, P. A., Singleton, A. *et al.* 2023. A neighbourhood Output Area Classification from the 2021 and 2022 UK censuses. *The Geographical Journal*. Online First. [\[Link\]](https://doi.org/10.1111/geoj.12550)
 
-#### Suggested readings {.unnumbered}
+#### Suggested readings 
 - Fränti, P., Sieronoja, S. 2019. How much can k-means be improved by using better initialization and repeats? *Pattern Recognition* 93: 95-112. [[Link]](https://doi.org/10.1016/j.patcog.2019.04.014)
 - Goodman, A., Wilkinson, P., Stafford, M. *et al.* 2011. Characterising socio-economic inequalities in exposure to air pollution: A comparison of socio-economic markers and scales of measurement. *Health & Place* 17(3): 767-774. [\[Link\]](https://doi.org/10.1016/j.healthplace.2011.02.002)
 - Singleton, A. and Spielman, S. 2014. The past, present, and future of geodemographic research in the United States and United Kingdom. *The Professional Geographer* 66(4): 558-567. [\[Link\]](https://doi.org/10.1080/00330124.2013.848764)
 
 ## Geodemographics
-
 The [CDRC Internet User Classification](https://data.cdrc.ac.uk/dataset/internet-user-classification) (IUC) is a bespoke geodemographic classification that describes how people residing in different parts of Great Britain interact with the Internet. For every Lower Super Output Area (LSOA) in England and Wales and Data Zone (DZ) ([2011 Census Geographies](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)), the IUC provides aggregate population estimates of Internet use and provides insights into the geography of the digital divide in the United Kingdom:
 
 > "Digital inequality is observable where access to online resources and those opportunities that these create are non-egalitarian. As a result of variable rates of access and use of the Internet between social and spatial groups (..), this leads to digital differentiation, which entrenches difference and reciprocates digital inequality over time" ([Singleton *et al.* 2020](https://doi.org/10.1016/j.compenvurbsys.2020.101486)).
@@ -181,7 +178,7 @@ Now we have these cluster classifications, how can we link them to people? Try u
 - calculate the total number of people associated with each cluster group **for England and Wales as a whole**; and
 - create a pretty data visualisation showing the results (no map!).
 
-#### File download {.unnumbered}
+#### File download 
 
 | File| Type  | Link                                                                                         |
 |:--------------------------------------|:---------------|:---------------|
@@ -189,7 +186,6 @@ Now we have these cluster classifications, how can we link them to people? Try u
 | Lower-layer Super Output Areas Great Britain 2011               | `shp` | [Download](https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/gb_lsoa11_sim.zip)     |
 
 ### k-means clustering
-
 In several cases, including the [2011 residential-based area classifications](http://josis.org/index.php/josis/article/view/232/150) and the Internet User Classification, a technique called **k-means clustering** is used in the creation of a geodemographic classification. K-means clustering aims to partition a set of observations into a number of clusters (*k*), in which each observation will be assigned to the cluster with the nearest mean. As such, a cluster refers to a collection of data points aggregated together because of certain similarities (i.e. standardised scores of your input data). In order to run a **k-means clustering**, you first define a target number *k* of clusters that you want. The k-means algorithm subsequently assigns every observation to one of the clusters by finding the solution that minimises the total within-cluster variance. For the second part of this week's practical material, we will be replicating part of the Internet User Classification for Great Britain. For this we will be using an MSOA-level input data set containing various socio-demographic and socio-economic variables that you can download below together with the MSOA administrative boundaries.
 
 The data set contains the following variables:
@@ -201,7 +197,7 @@ The data set contains the following variables:
 | `nssec_total`, `1_higher_managerial`, `2_lower_managerial`, `3_intermediate_occupations`, `4_employers_small_org`, `5_lower_supervisory`, `6_semi_routine`, `7_routine`, `8_unemployed` | Percentage of people in selected operational categories and sub-categories classes drawn from the National Statistics Socio-economic Classification ([NS-SEC](https://www.ons.gov.uk/methodology/classificationsandstandards/otherclassifications/thenationalstatisticssocioeconomicclassificationnssecrebasedonsoc2010)) |
 | `avg_dwn_speed`, `avb_superfast`, `no_decent_bband`, `bband_speed_under2mbs`, `bband_speed_under10mbs`, `bband_speed_over30mbs` | Measures of broadband use and internet availability |
 
-#### File download {.unnumbered}
+#### File download 
 
 | File | Type | Link |
 |:--------------------------------------|:---------------|:---------------|
@@ -477,7 +473,6 @@ Your map might look different as the cluster numbers are not consistently assign
 :::
 
 ### Tutorial task II {#task-geo-2}
-
 The creation of a geodemographic classification is an **iterative process** of trial and error that involves the addition and removal of variables as well as experimentation with different numbers of clusters. It also might be, for instances, that some clusters are very focused on one group of data (e.g. age) and it could be an idea to group some ages together. If you want to make changes to the clustering solution, you can simply re-run the analysis with a different set of variables or with a different number of clusters by updating the code. However, it would be even simpler if you could automate some of the process.
 
 Try to create a **R function** that:
@@ -493,7 +488,6 @@ Try to create a **R function** that:
 ::: 
 
 ## Before you leave {#byl-geo}
-
 Having finished this tutorial, you should now understand the basics of a geodemographic classification. In addition, you should have written a simple function. Although [you have now reached the end of this week's content](https://www.youtube.com/watch?v=8iwBM_YB1sE), you could try and improve your function. Consider:
 
 1.  Including *maps* or *graphs* in the code that get automatically saved.
