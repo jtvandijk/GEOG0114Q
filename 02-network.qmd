@@ -94,7 +94,7 @@ osmdata <- opq(bbox = p_bbox ) |>
 ```
 
 ::: {.callout-note}
-In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains **all** required OSM Portsmouth data instead: [[Link]](https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/osm_portmouth.zip).
+In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains **all** required OSM Portsmouth data instead: [[Link]](https://github.com/jtvandijk/GEOG0114Q/tree/master/data/zip/osm_portmouth_rdata.zip).
 
 You can load these downloaded data as follows into R:
 ```{r}

@@ -345,7 +345,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains <strong>all</strong> required OSM Portsmouth data instead: <a href="https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/osm_portmouth.zip">[Link]</a>.</p>
+<p>In some instances the OSM query will return an error, especially when several people from the same location are executing the exact same query. If this happens, you can just read through the instructions and download a prepared copy of the data that contains <strong>all</strong> required OSM Portsmouth data instead: <a href="https://github.com/jtvandijk/GEOG0114Q/tree/master/data/zip/osm_portmouth_rdata.zip">[Link]</a>.</p>
 <p>You can load these downloaded data as follows into R:</p>
 <div class="cell">
 <div class="code-with-filename">
@@ -484,7 +484,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(graph_connected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 56654</code></pre>
+<pre><code>[1] 56694</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dodgr_to_sf</span>(graph_connected), <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
