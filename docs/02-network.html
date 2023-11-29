@@ -264,24 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="loading-data-ntx" class="level3">
 <h3 class="anchored" data-anchor-id="loading-data-ntx">Acquiring network data</h3>
-<p>The first dataset we need to download will help with the visualisation of our results: boundary data that contains an outline of Portsmouth.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">File</th>
-<th style="text-align: left;">File Type</th>
-<th style="text-align: left;">Link</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Major towns and cities boundaries 2015</td>
-<td style="text-align: left;"><code>shp</code></td>
-<td style="text-align: left;"><a href="https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/major_towns.zip">Download</a></td>
-</tr>
-</tbody>
-</table>
-<p>We can now load the required libraries as well as the major towns and cities boundaries <code>shapefile</code>.</p>
+<p>As usual, we will start by loading any libraries we will require. Install any libraries that you might not have installed before.</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -291,21 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(osmdata)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dodgr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load major towns and cities, filter Portsmouth</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>portsmouth_city <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/outline/Major_Towns_and_Cities__December_2015__Boundaries.shp"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(tcity15nm <span class="sc">==</span> <span class="st">"Portsmouth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Reading layer `Major_Towns_and_Cities__December_2015__Boundaries' from data source `/Users/justinvandijk/Library/CloudStorage/Dropbox/UCL/Web/jtvandijk.github.io/GEOG0114Q/data/outline/Major_Towns_and_Cities__December_2015__Boundaries.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 112 features and 5 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -4.204842 ymin: 50.34101 xmax: 1.378014 ymax: 55.03117
-Geodetic CRS:  WGS 84</code></pre>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dodgr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>To create our network and Origin-Destination dataset, we will need data on schools, fast-food outlets, and a streetnetwork. Today we will be using <a href="https://www.openstreetmap.org">OpenStreetMap</a> for this. If you have never come across OpenStreetMap (OSM) before, it is a free editable map of the world.</p>
@@ -328,15 +297,15 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define our bbox coordinates for Portsmouth</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_bbox <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.113197</span>, <span class="fl">50.775781</span>, <span class="sc">-</span><span class="fl">1.026508</span>, <span class="fl">50.859941</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pass bounding box coordinates into the OverPassQuery (opq) function only</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># download features that are not classified as motorway</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>osmdata <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"highway"</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="st">"primary"</span>, <span class="st">"secondary"</span>, <span class="st">"tertiary"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"residential"</span>, <span class="st">"path"</span>, <span class="st">"footway"</span>, <span class="st">"unclassified"</span>, <span class="st">"living_street"</span>, <span class="st">"pedestrian"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define our bbox coordinates for Portsmouth</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p_bbox <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.113197</span>, <span class="fl">50.775781</span>, <span class="sc">-</span><span class="fl">1.026508</span>, <span class="fl">50.859941</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pass bounding box coordinates into the OverPassQuery (opq) function only</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># download features that are not classified as motorway</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>osmdata <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"highway"</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="st">"primary"</span>, <span class="st">"secondary"</span>, <span class="st">"tertiary"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"residential"</span>, <span class="st">"path"</span>, <span class="st">"footway"</span>, <span class="st">"unclassified"</span>, <span class="st">"living_street"</span>, <span class="st">"pedestrian"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note">
@@ -352,9 +321,9 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_ff.RData"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_roads_edges.RData"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_schools.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_ff.RData"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_roads_edges.RData"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../path/to/file/ports_schools.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>After loading your data, you can continue with the analysis in the <a href="#osm">Measuring Accessiblity</a> section below, starting with the creation of a network graph with the ‘foot weighting’ profile.</p>
@@ -368,13 +337,13 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the `p`oints, with their osm_id.</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ports_roads_nodes <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_points[, <span class="st">"osm_id"</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the lines, with their osm_id, name, type of highway, max speed and</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># oneway attributes</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ports_roads_edges <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_lines[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>, <span class="st">"highway"</span>, <span class="st">"maxspeed"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"oneway"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the `p`oints, with their osm_id.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ports_roads_nodes <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_points[, <span class="st">"osm_id"</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the lines, with their osm_id, name, type of highway, max speed and</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># oneway attributes</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ports_roads_edges <span class="ot">&lt;-</span> osmdata<span class="sc">$</span>osm_lines[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>, <span class="st">"highway"</span>, <span class="st">"maxspeed"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"oneway"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>To check our data set, we can quickly plot the edges of our road network using the <code>plot()</code> function:</p>
@@ -383,8 +352,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_roads_edges, <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ports_roads_edges, <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div id="fig-ntx-network-plot" class="quarto-figure quarto-figure-center anchored">
@@ -401,8 +370,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overwrite one-way default</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ports_roads_edges<span class="sc">$</span>oneway <span class="ot">&lt;-</span> <span class="st">"no"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overwrite one-way default</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ports_roads_edges<span class="sc">$</span>oneway <span class="ot">&lt;-</span> <span class="st">"no"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Now we have the network edges, we can turn this into a graph-representation that allows for the calculation of network-based accessibility statistics.</p>
@@ -416,15 +385,15 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download schools from OSM</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"school"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># download fast-food outlets</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ff_outlets <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"fast_food"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download schools from OSM</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"school"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># download fast-food outlets</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ff_outlets <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"fast_food"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>We also need to then extract the relevant data from the <code>osmdata</code> object:</p>
@@ -433,11 +402,11 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract school points</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ports_schools <span class="ot">&lt;-</span> schools<span class="sc">$</span>osm_points[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>)]</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract fast-food outlet points</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ports_ff <span class="ot">&lt;-</span> ff_outlets<span class="sc">$</span>osm_points[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract school points</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ports_schools <span class="ot">&lt;-</span> schools<span class="sc">$</span>osm_points[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>)]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract fast-food outlet points</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ports_ff <span class="ot">&lt;-</span> ff_outlets<span class="sc">$</span>osm_points[, <span class="fu">c</span>(<span class="st">"osm_id"</span>, <span class="st">"name"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>We now have our road network data and our Origin-Destination (OD) points in place and we can now move to construct our network graph and run our transport network analysis.</p>
@@ -457,8 +426,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create network graph with the foot weighting profile</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">weight_streetnet</span>(ports_roads_edges, <span class="at">wt_profile =</span> <span class="st">"foot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create network graph with the foot weighting profile</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">weight_streetnet</span>(ports_roads_edges, <span class="at">wt_profile =</span> <span class="st">"foot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Once we have our graph, we can then use this to calculate our network distances between our OD points. One thing to keep in mind is that potentially not all individual components in the network that we extracted are connected, for instance, because the bounding box cut off the access road of a <a href="https://en.wikipedia.org/wiki/Dead_end_(street)">cul-de-sac</a>. To make sure that our entire extracted network is connected, we now extract the <strong>largest connected component</strong> of the graph. You can use <code>table(graph$component)</code> to examine the sizes of all individual subgraphs. You will notice that most subgraphs consist of a very small number of edges.</p>
@@ -477,17 +446,17 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the largest connected graph component</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>graph_connected <span class="ot">&lt;-</span> graph[graph<span class="sc">$</span>component <span class="sc">==</span> <span class="dv">1</span>, ]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect number of remaining road segments</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(graph_connected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the largest connected graph component</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>graph_connected <span class="ot">&lt;-</span> graph[graph<span class="sc">$</span>component <span class="sc">==</span> <span class="dv">1</span>, ]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect number of remaining road segments</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(graph_connected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 56694</code></pre>
+<pre><code>[1] 56702</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dodgr_to_sf</span>(graph_connected), <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dodgr_to_sf</span>(graph_connected), <span class="at">max.plot =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ntx-extract-largest-graph" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -513,9 +482,9 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a distance matrix between schools and fast-food stores</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sch_to_ff_calc <span class="ot">&lt;-</span> <span class="fu">dodgr_distances</span>(graph_connected, <span class="at">from =</span> <span class="fu">st_coordinates</span>(ports_schools),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="fu">st_coordinates</span>(ports_ff), <span class="at">shortest =</span> <span class="cn">TRUE</span>, <span class="at">pairwise =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a distance matrix between schools and fast-food stores</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sch_to_ff_calc <span class="ot">&lt;-</span> <span class="fu">dodgr_distances</span>(graph_connected, <span class="at">from =</span> <span class="fu">st_coordinates</span>(ports_schools),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="fu">st_coordinates</span>(ports_ff), <span class="at">shortest =</span> <span class="cn">TRUE</span>, <span class="at">pairwise =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>The result of this computation is a distance-matrix that contains the network distances between all Origins (i.e.&nbsp;schools) and all Destinations (i.e.&nbsp;fast-food outlets). Let’s inspect the first row of our output. Do you understand what the values mean?</p>
@@ -524,8 +493,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sch_to_ff_calc, <span class="at">n =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sch_to_ff_calc, <span class="at">n =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         1        2        3       4        5        6       7        8
@@ -629,14 +598,14 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 400m</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_400m <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">400</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 800m</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_800m <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">800</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 1000m</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_1km <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 400m</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_400m <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">400</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 800m</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_800m <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">800</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fastfood outlets within 1000m</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_1km <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>

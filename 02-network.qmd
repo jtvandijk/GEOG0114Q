@@ -35,13 +35,7 @@ All calculations within the `dodgr` library currently need to be run in WGS84/42
 :::
 
 ### Acquiring network data {#loading-data-ntx}
-The first dataset we need to download will help with the visualisation of our results: boundary data that contains an outline of Portsmouth.
-
-| File                                    | File Type         | Link |
-| :------                                     | :------      | :------ |
-| Major towns and cities boundaries 2015      | `shp`        | [Download](https://github.com/jtvandijk/GEOG0114/tree/master/data/zip/major_towns.zip) |
-
-We can now load the required libraries as well as the major towns and cities boundaries `shapefile`.
+As usual, we will start by loading any libraries we will require. Install any libraries that you might not have installed before.
 
 ```{r}
 #| label: ntx-load-libaries-data
@@ -56,9 +50,6 @@ library(tidyverse)
 library(sf)
 library(osmdata)
 library(dodgr)
-
-# load major towns and cities, filter Portsmouth
-portsmouth_city <- st_read("data/outline/Major_Towns_and_Cities__December_2015__Boundaries.shp", stringsAsFactors = FALSE) |> filter(tcity15nm == "Portsmouth")
 ```
 
 To create our network and Origin-Destination dataset, we will need data on schools, fast-food outlets, and a streetnetwork. Today we will be using [OpenStreetMap](https://www.openstreetmap.org) for this. If you have never come across OpenStreetMap (OSM) before, it is a free editable map of the world. 
