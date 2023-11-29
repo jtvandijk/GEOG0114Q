@@ -290,6 +290,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Whilst there are <a href="https://wiki.openstreetmap.org/wiki/Downloading_data">various approaches</a> to downloading data from OpenStreetMap, we will use the <code>osmdata</code> library to directly extract our required OpenStreetMap (OSM) data into a variable. The <code>osmdata</code> library grants access within R to the <a href="https://overpass-turbo.eu/">Overpass API</a> that allows us to run queries on OSM data and then import the data as spatial objects. These queries are at the heart of these data downloads.</p>
 <p>We will go ahead and start with downloading and extracting our road network data. To OSM data using the <code>osmdata</code> library, we can use the <code>add_osm_feature()</code> function. To use the function, we need to provided it with either a <em>bounding box</em> of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the <a href="https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html">data vignette</a>.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A bounding box, or <code>bbox</code> is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing <code>shapefile</code> or <code>GeoPackage</code>.</p>
+</div>
+</div>
+</div>
 <p>To use the library (and API), we need to know how to write and run a query, which requires identifying the <code>key</code> and <code>value</code> that we need within our query to select the correct data. Essentially every map element (whether a point, line or polygon) in OSM is <strong>tagged</strong> with different attribute data. These <code>keys</code> and <code>values</code> are used in our queries to extract only map elements of that feature type - to find out how a feature is tagged in OSM is simply a case of <a href="https://wiki.openstreetmap.org/wiki/Tags">reading through the OSM documentation</a> and becoming familiar with their keys and values.</p>
 <p>To download our road network dataset, we first define a variable to store our bounding box coordinates, <code>p_bbox()</code>. We then use this within our OSM query to extract specific types of road segments within that bounding box - the results of our query are then stored in an <code>osmdata</code> object. We will select all OSM features with the <code>highway</code> tag that are likely to be used by pedestrians (e.g.&nbsp;not <code>motorways</code>).</p>
 <div class="cell">

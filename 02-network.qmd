@@ -62,6 +62,10 @@ Whilst there are [various approaches](https://wiki.openstreetmap.org/wiki/Downlo
 
 We will go ahead and start with downloading and extracting our road network data. To OSM data using the `osmdata` library, we can use the `add_osm_feature()` function. To use the function, we need to provided it with either a *bounding box* of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the [data vignette](https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html).
 
+::: { .callout-tip}
+A bounding box, or `bbox` is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing `shapefile` or `GeoPackage`.
+:::
+
 To use the library (and API), we need to know how to write and run a query, which requires identifying the `key` and `value` that we need within our query to select the correct data. Essentially every map element (whether a point, line or polygon) in OSM is **tagged** with different attribute data. These `keys` and `values` are used in our queries to extract only map elements of that feature type - to find out how a feature is tagged in OSM is simply a case of [reading through the OSM documentation](https://wiki.openstreetmap.org/wiki/Tags) and becoming familiar with their keys and values.
 
 To download our road network dataset, we first define a variable to store our bounding box coordinates, `p_bbox()`. We then use this within our OSM query to extract specific types of road segments within that bounding box - the results of our query are then stored in an `osmdata` object. We will select all OSM features with the `highway` tag that are likely to be used by pedestrians (e.g. not `motorways`).
