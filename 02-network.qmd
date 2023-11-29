@@ -312,18 +312,17 @@ This skills and steps required for this analysis are not just based on this week
 
 One way of doing this, is by taking some of the following steps:
 
-- Download and extract the 2011 LSOA boundaries of Portsmouth.
+- Download the [2011 LSOA boundaries](https://geoportal.statistics.gov.uk/) and extract only those that relate to Portsmouth.
 - Download the [2019 Index of Multiple Deprivation](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019) scores.
 - Decide on an accessibility measure, such as:
     + The average number of fast-food restaurants within `x` meters of a school within each LSOA.
     + The average distance a fast-food restaurant is from a school within each LSOA.
     + The (average) shortest distance a fast-food restaurant is from a school within each LSOA.
     + The minimum shortest distance a fast-food outlet is from a school within each LSOA.
-- Create a choropleth map of aggregate accessibility to visualise the results.
 - Join the 2019 Index of Multiple Deprivation data to your LSOA dataset.
 - For each IMD decile, calculate the average for your chosen aggregate measure and produce a table. 
 
-Using your approach what do you think: are fast-food restaurants, on average, more accessible for students at schools that are located within LSOAs with a lower IMD decile when compared to students at schools that are located within LSOAs with a higher IMD decile?
+Using your approach what do you think: are fast-food restaurants, on average, more accessible for students at schools that are located within LSOAs with a lower IMD decile (more deprived) when compared to students at schools that are located within LSOAs with a higher IMD decile (less deprived)?
 
 ## Want more? [Optional] {#wm-w10}
 We have now conducted some basic accessibility analysis, however, there is some additional fundamental challenges to  consider in the context of transport network and accessibility analysis:
@@ -333,7 +332,7 @@ We have now conducted some basic accessibility analysis, however, there is some 
 3. Why you think all Origins and Destinations are mapped onto the closest network points? Is this always the best option? What alternative methods could you think of and how would you implement these?
 
 ::: {.callout-tip}
-If you want to take a deepdive into accessibility analysis, there is a great resource that got published recently: [Introduction to urban accessibility: a practical guide in R](https://ipeagit.github.io/intro_access_book/).
+If you want to take a deep dive into accessibility analysis, there is a great resource that got published recently: [Introduction to urban accessibility: a practical guide in R](https://ipeagit.github.io/intro_access_book/).
 :::
 
 ## Before you leave {#byl-ntx}
