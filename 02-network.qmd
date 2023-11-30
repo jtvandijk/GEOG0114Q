@@ -55,7 +55,7 @@ library(dodgr)
 To create our network and Origin-Destination dataset, we will need data on schools, fast-food outlets, and a streetnetwork. Today we will be using [OpenStreetMap](https://www.openstreetmap.org) for this. If you have never come across OpenStreetMap (OSM) before, it is a free editable map of the world. 
 
 ::: {.callout-note}
-OpenStreetMap’s spatial coverage is still unequal across the world - plus, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g. types of roads and their speed limits, to complete specific types of spatial analysis.
+OpenStreetMap’s spatial coverage is still unequal across the world as well as that, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g. types of roads and their speed limits.
 :::
 
 Whilst there are [various approaches](https://wiki.openstreetmap.org/wiki/Downloading_data) to downloading data from OpenStreetMap, we will use the `osmdata` library to directly extract our required OpenStreetMap (OSM) data into a variable. The `osmdata` library grants access within R to the [Overpass API](https://overpass-turbo.eu/) that allows us to run queries on OSM data and then import the data as spatial objects. These queries are at the heart of these data downloads.
@@ -63,7 +63,7 @@ Whilst there are [various approaches](https://wiki.openstreetmap.org/wiki/Downlo
 We will go ahead and start with downloading and extracting our road network data. To OSM data using the `osmdata` library, we can use the `add_osm_feature()` function. To use the function, we need to provided it with either a *bounding box* of our area of interest (AOI) or a set of points, from which the function will create its own bounding box. You can find out more about this and details on how to construct your own queries in the [data vignette](https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html).
 
 ::: { .callout-tip}
-A bounding box, or `bbox` is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing `shapefile` or `GeoPackage`.
+A bounding box, or `bbox`, is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing `shapefile` or `GeoPackage`.
 :::
 
 To use the library (and API), we need to know how to write and run a query, which requires identifying the `key` and `value` that we need within our query to select the correct data. Essentially every map element (whether a point, line or polygon) in OSM is **tagged** with different attribute data. These `keys` and `values` are used in our queries to extract only map elements of that feature type - to find out how a feature is tagged in OSM is simply a case of [reading through the OSM documentation](https://wiki.openstreetmap.org/wiki/Tags) and becoming familiar with their keys and values.
@@ -161,7 +161,7 @@ Now we have the network edges, we can turn this into a graph-representation that
 ### Measuring accessibility {#osm}
 Before we can construct our full network graph for the purpose of accessibility analysis, we need to also provide our **Origin** and **Destination** points, i.e. the data points we wish to calculate the distances between. According to the `dodgr` documentation, these points need to be in either a vector or matrix format, containing the two coordinates for each point for the origins and for the destinations.
 
-As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets - again we will turn to OpenStreetMap. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap `keys` and `values` to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:
+As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets from OpenStreetMap as well. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap `keys` and `values` to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:
 
 ```{r}
 #| label: ntx-osm-schools-fastfood
@@ -171,7 +171,7 @@ As for our Portsmouth scenario we are interested in calculating the shortest dis
 #| tidy: TRUE
 #| filename: "R code"
 
-# download schools from OSM
+# download schools 
 schools <- opq(bbox = p_bbox) |>
   add_osm_feature(key = 'amenity', value = 'school') |> 
   osmdata_sf()
@@ -215,7 +215,7 @@ With any network analysis, the main data structure is a **graph**, constructed b
 #| tidy: TRUE
 #| filename: "R code"
 
-# create network graph  with the foot weighting profile
+# create network graph with the foot weighting profile
 graph <- weight_streetnet(ports_roads_edges, wt_profile = "foot")
 ```
 
@@ -276,14 +276,14 @@ The result of this computation is a distance-matrix that contains the network di
 head(sch_to_ff_calc, n=1)
 ```
 
-Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently should not have any `NA` values.
+Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently <u>should not</u> have any `NA` values.
 
 ::: {.callout-tip}
 The [`dodgr` vignette](https://cran.r-project.org/web/packages/dodgr/vignettes/dodgr.html#4_Distance_Matrices:_dodgr_dists()) notes that
 a distance matrix obtained from running `dodgr_distances` on `graph_connected` should generally contain no `NA` values, although some points may still be effectively unreachable due to one-way connections (or streets). Thus, routing on the largest connected component of a directed graph ought to be expected to yield the minimal number of `NA` values, which may sometimes be more than zero. Note further that spatial routing points (expressed as from and/or to arguments) will in this case be mapped to the nearest vertices of `graph_connected`, rather than the potentially closer nearest points of the full graph.
 :::
 
-The next step of processing all depends on what you are trying to assess - here we want to understand which schools have a higher accessibility of fast-food outlets compared to others, quantified by how many outlets are within walking distance of specific distances. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our `ports_school` data frame. 
+The next step of processing all depends on what you are trying to assess. Today we want to understand which schools have a closer proximity to fast-food outlets and which do not, quantified by how many outlets are within walking distance. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our `ports_school` data frame. 
 
 ```{r} 
 #| label: ntx-aggregate-counts
@@ -303,8 +303,10 @@ ports_schools$ff_within_800m <- rowSums(sch_to_ff_calc <= 800)
 ports_schools$ff_within_1km <- rowSums(sch_to_ff_calc <= 1000)
 ```
 
+You can inspect the `ports_schools` object to see the results of this analysis. 
+
 ### Tutorial task {#task-ntx}
-Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth, your task is to estimate the accessibility of fast-food outlets at the LSOA scale and compare this to the [2019 Index of Multiple Deprivation](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019). 
+Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth and should get the idea behind a basic accessibility analysis, your task is to estimate the accessibility of fast-food outlets at the **LSOA** scale and compare this to the [2019 Index of Multiple Deprivation](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019). 
 
 ::: {.callout-tip}
 This skills and steps required for this analysis are not just based on this week's practical, but you will have to combine all your knowledge of coding and spatial analysis you have gained over the past weeks.
@@ -319,8 +321,9 @@ One way of doing this, is by taking some of the following steps:
     + The average distance a fast-food restaurant is from a school within each LSOA.
     + The (average) shortest distance a fast-food restaurant is from a school within each LSOA.
     + The minimum shortest distance a fast-food outlet is from a school within each LSOA.
+- Aggregate accessibility scores to the LSOA level.
 - Join the 2019 Index of Multiple Deprivation data to your LSOA dataset.
-- For each IMD decile, calculate the average for your chosen aggregate measure and produce a table. 
+- For each IMD decile, calculate the average for your chosen aggregate measure and produce a table.
 
 Using your approach what do you think: are fast-food restaurants, on average, more accessible for students at schools that are located within LSOAs with a lower IMD decile (more deprived) when compared to students at schools that are located within LSOAs with a higher IMD decile (less deprived)?
 

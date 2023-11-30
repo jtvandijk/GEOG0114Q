@@ -284,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>OpenStreetMap’s spatial coverage is still unequal across the world - plus, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g.&nbsp;types of roads and their speed limits, to complete specific types of spatial analysis.</p>
+<p>OpenStreetMap’s spatial coverage is still unequal across the world as well as that, as you will find if you use the data, the accuracy and quality of the data can often be quite questionable or simply missing attribute details that we would like to have, e.g.&nbsp;types of roads and their speed limits.</p>
 </div>
 </div>
 </div>
@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>A bounding box, or <code>bbox</code> is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing <code>shapefile</code> or <code>GeoPackage</code>.</p>
+<p>A bounding box, or <code>bbox</code>, is an area defined by two longitudes and two latitudes. Essentially, it is a rectangular georeferenced polygon that you can use to demarcate an area. You can either define bounding box coordinates yourself or extract values from an existing <code>shapefile</code> or <code>GeoPackage</code>.</p>
 </div>
 </div>
 </div>
@@ -389,13 +389,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="osm" class="level3">
 <h3 class="anchored" data-anchor-id="osm">Measuring accessibility</h3>
 <p>Before we can construct our full network graph for the purpose of accessibility analysis, we need to also provide our <strong>Origin</strong> and <strong>Destination</strong> points, i.e.&nbsp;the data points we wish to calculate the distances between. According to the <code>dodgr</code> documentation, these points need to be in either a vector or matrix format, containing the two coordinates for each point for the origins and for the destinations.</p>
-<p>As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets - again we will turn to OpenStreetMap. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap <code>keys</code> and <code>values</code> to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:</p>
+<p>As for our Portsmouth scenario we are interested in calculating the shortest distances between schools and fast-food outlets, we need to try and download these datasets from OpenStreetMap as well. Following a similar structure to our query above, we will use our knowledge of OpenStreetMap <code>keys</code> and <code>values</code> to extract the points of Origins (schools) and Destinations (fast-food outlets) we are interested in:</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>R code</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download schools from OSM</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download schools</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>schools <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> p_bbox) <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>, <span class="at">value =</span> <span class="st">"school"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osmdata_sf</span>()</span>
@@ -591,7 +591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1 7338.052 7338.052 7376.95</code></pre>
 </div>
 </div>
-<p>Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently should not have any <code>NA</code> values.</p>
+<p>Our output shows the calculations for the first school - and the distances between the school and every fast-food outlet. Because we manually overwrote the values for all one-way streets as well as that we extracted the larges connected graph only, we currently <u>should not</u> have any <code>NA</code> values.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -602,7 +602,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The next step of processing all depends on what you are trying to assess - here we want to understand which schools have a higher accessibility of fast-food outlets compared to others, quantified by how many outlets are within walking distance of specific distances. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our <code>ports_school</code> data frame.</p>
+<p>The next step of processing all depends on what you are trying to assess. Today we want to understand which schools have a closer proximity to fast-food outlets and which do not, quantified by how many outlets are within walking distance. We will therefore look to count how many outlets are with walking distance from each school and store this as a new column within our <code>ports_school</code> data frame.</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -618,10 +618,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ports_schools<span class="sc">$</span>ff_within_1km <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(sch_to_ff_calc <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<p>You can inspect the <code>ports_schools</code> object to see the results of this analysis.</p>
 </section>
 <section id="task-ntx" class="level3">
 <h3 class="anchored" data-anchor-id="task-ntx">Tutorial task</h3>
-<p>Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth, your task is to estimate the accessibility of fast-food outlets at the LSOA scale and compare this to the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">2019 Index of Multiple Deprivation</a>.</p>
+<p>Now you have calculated the number of fast-food outlets within specific distances from every school in Portsmouth and should get the idea behind a basic accessibility analysis, your task is to estimate the accessibility of fast-food outlets at the <strong>LSOA</strong> scale and compare this to the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019">2019 Index of Multiple Deprivation</a>.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -643,6 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The (average) shortest distance a fast-food restaurant is from a school within each LSOA.</li>
 <li>The minimum shortest distance a fast-food outlet is from a school within each LSOA.</li>
 </ul></li>
+<li>Aggregate accessibility scores to the LSOA level.</li>
 <li>Join the 2019 Index of Multiple Deprivation data to your LSOA dataset.</li>
 <li>For each IMD decile, calculate the average for your chosen aggregate measure and produce a table.</li>
 </ul>
@@ -663,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>If you want to take a deepdive into accessibility analysis, there is a great resource that got published recently: <a href="https://ipeagit.github.io/intro_access_book/">Introduction to urban accessibility: a practical guide in R</a>.</p>
+<p>If you want to take a deep dive into accessibility analysis, there is a great resource that got published recently: <a href="https://ipeagit.github.io/intro_access_book/">Introduction to urban accessibility: a practical guide in R</a>.</p>
 </div>
 </div>
 </div>
